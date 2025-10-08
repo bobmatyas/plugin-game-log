@@ -1,0 +1,282 @@
+/**
+ * Game Log Admin Styles
+ */
+
+/* Game Stats */
+.game-stats {
+    display: flex;
+    gap: 20px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.stat-box {
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    min-width: 120px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.stat-box h3 {
+    font-size: 2em;
+    margin: 0 0 5px 0;
+    color: #23282d;
+}
+
+.stat-box p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.game-log-add-holder {
+	margin-block-start: 20px;
+}
+
+/* Game Filters */
+.game-filters {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+.game-filters select {
+    margin-right: 10px;
+}
+
+/* Game Log List */
+
+.game-log-list th {
+	font-weight: bold;
+}
+
+.game-log-list img {
+    height: auto;
+    width: 125px;
+}
+
+/* Game Search Modal */
+
+.game-search-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	border-color: #eee;
+	border-radius: 4px;
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+	padding: 0;
+	margin: 0;
+	background-color: #fff;
+    margin: auto;
+    padding: 0;
+    width: 90%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow: hidden;
+}
+
+.game-search-modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f9f9f9;
+}
+
+.game-search-modal-header h2 {
+    margin: 0;
+}
+
+.close {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+}
+
+.game-search-modal-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.game-search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.game-search-form input {
+    flex: 1;
+}
+
+/* Add A Game Page */
+
+.search-field-group label {
+	font-weight: bold;
+}
+
+.search-input-wrapper {
+	margin-block-start: 10px;
+}
+
+
+/* Search Results */
+.search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.game-result-item {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: box-shadow 0.2s;
+}
+
+.game-result-item:hover {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.game-cover-container {
+    margin-bottom: 15px;
+}
+
+.game-cover {
+    max-width: 100px;
+    max-height: 120px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.no-cover {
+    width: 100px;
+    height: 120px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 12px;
+    margin: 0;
+}
+
+.game-details {
+	margin-block-end: 20px;
+}
+
+.game-details h3 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+    color: #23282d;
+}
+
+.game-details p {
+    margin: 5px 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.game-title {
+    font-weight: 600;
+}
+
+.game-summary {
+    font-style: italic;
+    margin-top: 10px !important;
+}
+
+.game-result-item {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  .game-details {
+	flex-grow: 1; /* pushes the button down */
+  }
+  
+  .add-game-btn {
+	margin-top: auto; /* sticks to the bottom */
+  }
+
+.add-game-btn {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.button-success {
+    background: #46b450 !important;
+    border-color: #46b450 !important;
+    color: #fff !important;
+}
+
+/* Loading and Error States */
+.search-loading,
+.search-error,
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-style: italic;
+}
+
+.search-error {
+    color: #d63638;
+}
+
+/* Games List Table */
+.game-log-list table {
+    margin-top: 20px;
+}
+
+.game-log-list .no-thumbnail {
+    width: 50px;
+    height: 50px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-stats {
+        flex-direction: column;
+    }
+    
+    .stat-box {
+        min-width: auto;
+    }
+    
+    .search-results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .game-search-modal-content {
+        width: 95%;
+        margin: 20px;
+    }
+    
+    .game-search-form {
+        flex-direction: column;
+    }
+}

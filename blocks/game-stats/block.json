@@ -1,0 +1,44 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "game-log/game-stats",
+	"version": "1.0.0",
+	"title": "Game Statistics",
+	"category": "gamelog",
+	"icon": "games",
+	"description": "Display your game collection statistics including total games, played, playing, backlog, and wishlist counts.",
+	"keywords": ["games", "statistics", "collection", "gaming"],
+	"textdomain": "game-log",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"attributes": {
+		"showTotal": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPlayed": {
+			"type": "boolean",
+			"default": true
+		},
+		"showPlaying": {
+			"type": "boolean",
+			"default": true
+		},
+		"showBacklog": {
+			"type": "boolean",
+			"default": true
+		},
+		"showWishlist": {
+			"type": "boolean",
+			"default": true
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	}
+}
