@@ -1,0 +1,50 @@
+# WordPress core files and directories (if the plugin is developed within a full WordPress installation)
+# If your plugin is developed in isolation, these might not be present or relevant.
+wp-admin/
+wp-includes/
+wp-content/cache/
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/languages/
+wp-content/plugins/*
+!wp-content/plugins/your-plugin-name/ # Include your specific plugin folder
+
+# Ignore common files and directories not relevant to the plugin's code
+.DS_Store
+Thumbs.db
+*.log
+error_log
+php.ini
+.user.ini
+.htaccess
+wp-config.php
+wp-config-sample.php
+
+# Node.js and build tool related files (if applicable)
+node_modules/
+package-lock.json
+yarn.lock
+dist/
+build/
+*.sublime-project
+*.sublime-workspace
+.idea/
+.vscode/
+
+# Composer dependencies (if applicable)
+vendor/
+composer.lock
+
+# Dynamic files and directories specific to certain plugins or hosting environments
+wp-content/ewww/
+wp-content/db.php
+wp-content/autoptimize_404_handler.php
+wp-content/wp-cloudflare-super-page-cache/
+wp-content/wpo-cache/
+wp-content/ai1wm-backups/
+
+# Any other specific temporary or generated files
+*.zip
+*.tar.gz
+*.bak
+*.tmp

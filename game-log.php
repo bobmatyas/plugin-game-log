@@ -3,7 +3,7 @@
  * Plugin Name: Game Log
  * Plugin URI: https://www.bobmatyas.com
  * Description: A WordPress plugin to track video games you've played, are playing, or want to play using IGDB.com database.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Bob Matyas
  * License: GPL v2 or later
  * Text Domain: game-log

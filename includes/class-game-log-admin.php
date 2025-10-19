@@ -386,7 +386,7 @@ class Game_Log_Admin {
 			?>
 			<form id="bulk-actions-form" method="post">
 				<?php wp_nonce_field( 'game_log_bulk_actions', 'game_log_bulk_nonce' ); ?>
-				<div class="tablenav top">
+				<div class="game-log-bulk-actions top">
 					<div class="alignleft actions bulkactions">
 						<label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'game-log' ); ?></label>
 						<select name="bulk_action" id="bulk-action-selector-top">

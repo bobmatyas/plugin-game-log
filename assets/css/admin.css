@@ -42,10 +42,6 @@
     border-radius: 4px;
 }
 
-.game-filters select {
-    margin-right: 10px;
-}
-
 /* Game Log List */
 
 .game-log-list th {
@@ -217,61 +213,25 @@
 }
 
 /* Bulk Actions Styling */
-.tablenav {
+.game-log-bulk-actions {
     margin: 6px 0 4px;
     padding: 0;
-    background: #f1f1f1;
-    border: 1px solid #ccd0d4;
-    border-radius: 3px;
     overflow: hidden;
 }
 
-.tablenav .alignleft {
+.game-log-bulk-actions .alignleft {
     float: left;
     margin: 0;
     padding: 0;
 }
 
-.tablenav .alignleft.actions {
-    padding: 8px 10px;
-}
-
-.tablenav .alignleft.actions select {
-    margin-right: 6px;
-}
-
-.tablenav .alignleft.actions input[type="submit"] {
-    margin-left: 6px;
-}
-
-.bulkactions select {
+.bulkactions select, .game-filters select {
     min-width: 150px;
 }
 
 #new-status-selector {
     margin-left: 6px;
     min-width: 140px;
-}
-
-/* Checkbox column styling */
-.check-column {
-    width: 2.2em;
-    text-align: center;
-    vertical-align: top;
-}
-
-.check-column input[type="checkbox"] {
-    margin: 0;
-}
-
-/* Select all checkbox styling */
-#cb-select-all-1 {
-    margin: 0;
-}
-
-/* Game checkbox styling */
-.game-checkbox {
-    margin: 0;
 }
 
 /* Table row hover effect for selected games */
