@@ -176,7 +176,134 @@
 }
 
 .game-details {
-	margin-block-end: 20px;
+	margin-block-end: 15px;
+}
+
+.game-add-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.status-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.status-selection label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #23282d;
+    margin: 0;
+}
+
+.game-status-select {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: #fff;
+    font-size: 13px;
+    color: #23282d;
+    min-width: 120px;
+}
+
+.game-status-select:focus {
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+    outline: none;
+}
+
+/* Bulk Actions Styling */
+.tablenav {
+    margin: 6px 0 4px;
+    padding: 0;
+    background: #f1f1f1;
+    border: 1px solid #ccd0d4;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.tablenav .alignleft {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.tablenav .alignleft.actions {
+    padding: 8px 10px;
+}
+
+.tablenav .alignleft.actions select {
+    margin-right: 6px;
+}
+
+.tablenav .alignleft.actions input[type="submit"] {
+    margin-left: 6px;
+}
+
+.bulkactions select {
+    min-width: 150px;
+}
+
+#new-status-selector {
+    margin-left: 6px;
+    min-width: 140px;
+}
+
+/* Checkbox column styling */
+.check-column {
+    width: 2.2em;
+    text-align: center;
+    vertical-align: top;
+}
+
+.check-column input[type="checkbox"] {
+    margin: 0;
+}
+
+/* Select all checkbox styling */
+#cb-select-all-1 {
+    margin: 0;
+}
+
+/* Game checkbox styling */
+.game-checkbox {
+    margin: 0;
+}
+
+/* Table row hover effect for selected games */
+tr:hover .game-checkbox {
+    opacity: 1;
+}
+
+.game-checkbox {
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+/* Bulk actions form styling */
+#bulk-actions-form {
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 782px) {
+    .tablenav .alignleft.actions {
+        padding: 6px 8px;
+    }
+    
+    .bulkactions select {
+        min-width: 120px;
+        font-size: 14px;
+    }
+    
+    #new-status-selector {
+        min-width: 110px;
+        font-size: 14px;
+    }
 }
 
 .game-details h3 {

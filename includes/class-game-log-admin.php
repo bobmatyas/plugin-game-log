@@ -29,6 +29,7 @@ class Game_Log_Admin {
 		add_action( 'admin_notices', array( $this, 'show_admin_notices' ) );
 		add_filter( 'admin_url', array( $this, 'modify_add_new_game_url' ), 10, 2 );
 		add_action( 'admin_init', array( $this, 'handle_page_generation' ) );
+		add_action( 'admin_init', array( $this, 'handle_bulk_actions' ) );
 	}
 	/**
 	 * Add admin menu
@@ -383,17 +384,41 @@ class Game_Log_Admin {
 
 		if ( $games->have_posts() ) {
 			?>
-			<table class="wp-list-table widefat fixed striped">
-				<thead>
-					<tr>
-						<th><?php esc_html_e( 'Cover', 'game-log' ); ?></th>
-						<th><?php esc_html_e( 'Title', 'game-log' ); ?></th>
-						<th><?php esc_html_e( 'Status', 'game-log' ); ?></th>
-						<th><?php esc_html_e( 'Rating', 'game-log' ); ?></th>
-						<th><?php esc_html_e( 'Release Date', 'game-log' ); ?></th>
-						<th><?php esc_html_e( 'Actions', 'game-log' ); ?></th>
-					</tr>
-				</thead>
+			<form id="bulk-actions-form" method="post">
+				<?php wp_nonce_field( 'game_log_bulk_actions', 'game_log_bulk_nonce' ); ?>
+				<div class="tablenav top">
+					<div class="alignleft actions bulkactions">
+						<label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'game-log' ); ?></label>
+						<select name="bulk_action" id="bulk-action-selector-top">
+							<option value="-1"><?php esc_html_e( 'Bulk actions', 'game-log' ); ?></option>
+							<option value="change_status"><?php esc_html_e( 'Change Status', 'game-log' ); ?></option>
+							<option value="delete"><?php esc_html_e( 'Delete', 'game-log' ); ?></option>
+						</select>
+						<select name="new_status" id="new-status-selector" style="display: none;">
+							<option value=""><?php esc_html_e( 'Select new status...', 'game-log' ); ?></option>
+							<option value="wishlist"><?php esc_html_e( 'Wishlist', 'game-log' ); ?></option>
+							<option value="backlog"><?php esc_html_e( 'Backlog', 'game-log' ); ?></option>
+							<option value="playing"><?php esc_html_e( 'Playing', 'game-log' ); ?></option>
+							<option value="played"><?php esc_html_e( 'Played', 'game-log' ); ?></option>
+						</select>
+						<input type="submit" id="doaction" class="button action" value="<?php esc_attr_e( 'Apply', 'game-log' ); ?>" />
+					</div>
+				</div>
+				<table class="wp-list-table widefat fixed striped">
+					<thead>
+						<tr>
+							<td class="manage-column column-cb check-column">
+								<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'game-log' ); ?></label>
+								<input id="cb-select-all-1" type="checkbox" />
+							</td>
+							<th><?php esc_html_e( 'Cover', 'game-log' ); ?></th>
+							<th><?php esc_html_e( 'Title', 'game-log' ); ?></th>
+							<th><?php esc_html_e( 'Status', 'game-log' ); ?></th>
+							<th><?php esc_html_e( 'Rating', 'game-log' ); ?></th>
+							<th><?php esc_html_e( 'Release Date', 'game-log' ); ?></th>
+							<th><?php esc_html_e( 'Actions', 'game-log' ); ?></th>
+						</tr>
+					</thead>
 				<tbody>
 					<?php
 					while ( $games->have_posts() ) :
@@ -408,6 +433,10 @@ class Game_Log_Admin {
 						$status       = ! empty( $status_terms ) ? $status_terms[0]->name : '';
 						?>
 						<tr>
+							<th class="check-column">
+								<label class="screen-reader-text" for="game_<?php echo esc_attr( $game_id ); ?>"><?php esc_html_e( 'Select', 'game-log' ); ?> <?php the_title(); ?></label>
+								<input type="checkbox" name="game_ids[]" value="<?php echo esc_attr( $game_id ); ?>" id="game_<?php echo esc_attr( $game_id ); ?>" class="game-checkbox" />
+							</th>
 							<td>
 								<?php if ( has_post_thumbnail() ) : ?>
 									<?php echo get_the_post_thumbnail( get_the_ID(), 'full' ); ?>
@@ -429,6 +458,7 @@ class Game_Log_Admin {
 					<?php endwhile; ?>
 				</tbody>
 			</table>
+			</form>
 			
 			<?php
 			// Pagination.
@@ -577,5 +607,148 @@ class Game_Log_Admin {
 				}
 			);
 		}
+	}
+
+	/**
+	 * Handle bulk actions
+	 */
+	public function handle_bulk_actions(): void {
+		// Check if this is a bulk action request.
+		if ( ! isset( $_POST['bulk_action'] ) || ! isset( $_POST['game_log_bulk_nonce'] ) ) {
+			return;
+		}
+
+		// Verify nonce.
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['game_log_bulk_nonce'] ) ), 'game_log_bulk_actions' ) ) {
+			wp_die( esc_html__( 'Security check failed', 'game-log' ) );
+		}
+
+		// Check permissions.
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_die( esc_html__( 'Insufficient permissions', 'game-log' ) );
+		}
+
+		$bulk_action = sanitize_text_field( wp_unslash( $_POST['bulk_action'] ) );
+		$game_ids    = array_map( 'intval', $_POST['game_ids'] ?? array() );
+
+		if ( empty( $game_ids ) ) {
+			add_action( 'admin_notices', array( $this, 'bulk_action_no_games_selected_notice' ) );
+			return;
+		}
+
+		switch ( $bulk_action ) {
+			case 'change_status':
+				$this->handle_bulk_status_change( $game_ids );
+				break;
+			case 'delete':
+				$this->handle_bulk_delete( $game_ids );
+				break;
+			default:
+				add_action( 'admin_notices', array( $this, 'bulk_action_invalid_notice' ) );
+		}
+	}
+
+	/**
+	 * Handle bulk status change
+	 *
+	 * @param array $game_ids Array of game IDs.
+	 */
+	private function handle_bulk_status_change( array $game_ids ): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- Nonce verified in handle_bulk_actions
+		$new_status = sanitize_text_field( wp_unslash( $_POST['new_status'] ?? '' ) );
+
+		if ( empty( $new_status ) ) {
+			add_action( 'admin_notices', array( $this, 'bulk_action_no_status_selected_notice' ) );
+			return;
+		}
+
+		// Get the status term.
+		$status_term = get_term_by( 'slug', $new_status, 'game_status' );
+		if ( ! $status_term ) {
+			add_action( 'admin_notices', array( $this, 'bulk_action_invalid_status_notice' ) );
+			return;
+		}
+
+		$updated_count = 0;
+		foreach ( $game_ids as $game_id ) {
+			if ( current_user_can( 'edit_post', $game_id ) ) {
+				wp_set_object_terms( $game_id, array( $status_term->term_id ), 'game_status' );
+				++$updated_count;
+			}
+		}
+
+		if ( $updated_count > 0 ) {
+			$status_name = $status_term->name;
+			add_action(
+				'admin_notices',
+				function () use ( $updated_count, $status_name ) {
+					$message = sprintf(
+						// translators: %1$d is the number of games, %2$s is the status name.
+						_n( '%1$d game status changed to %2$s.', '%1$d games status changed to %2$s.', $updated_count, 'game-log' ),
+						$updated_count,
+						$status_name
+					);
+					echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+				}
+			);
+		}
+	}
+
+	/**
+	 * Handle bulk delete
+	 *
+	 * @param array $game_ids Array of game IDs.
+	 */
+	private function handle_bulk_delete( array $game_ids ): void {
+		$deleted_count = 0;
+		foreach ( $game_ids as $game_id ) {
+			if ( current_user_can( 'delete_post', $game_id ) ) {
+				if ( wp_delete_post( $game_id, true ) ) {
+					++$deleted_count;
+				}
+			}
+		}
+
+		if ( $deleted_count > 0 ) {
+			add_action(
+				'admin_notices',
+				function () use ( $deleted_count ) {
+					$message = sprintf(
+						// translators: %d is the number of games.
+						_n( '%d game deleted.', '%d games deleted.', $deleted_count, 'game-log' ),
+						$deleted_count
+					);
+					echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
+				}
+			);
+		}
+	}
+
+	/**
+	 * Admin notice for no games selected
+	 */
+	public function bulk_action_no_games_selected_notice(): void {
+		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Please select at least one game.', 'game-log' ) . '</p></div>';
+	}
+
+	/**
+	 * Admin notice for invalid action
+	 */
+	public function bulk_action_invalid_notice(): void {
+		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Invalid bulk action.', 'game-log' ) . '</p></div>';
+	}
+
+	/**
+	 * Admin notice for no status selected
+	 */
+	public function bulk_action_no_status_selected_notice(): void {
+		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Please select a new status.', 'game-log' ) . '</p></div>';
+	}
+
+	/**
+	 * Admin notice for invalid status
+	 */
+	public function bulk_action_invalid_status_notice(): void {
+		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Invalid status selected.', 'game-log' ) . '</p></div>';
 	}
 }

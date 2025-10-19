@@ -260,10 +260,21 @@
             if (game.summary) {
                 html += '<p class="game-summary"><a href="#" class="view-summary" data-summary="' + game.summary.replace(/"/g, '&quot;') + '">View Summary</a></p>';
             }
+            html += '</div>';
+            html += '<div class="game-add-section">';
+            html += '<div class="status-selection">';
+            html += '<label for="game-status-' + game.id + '">Status:</label>';
+            html += '<select id="game-status-' + game.id + '" class="game-status-select" data-game-id="' + game.id + '">';
+            html += '<option value="wishlist">Wishlist</option>';
+            html += '<option value="backlog">Backlog</option>';
+            html += '<option value="playing">Playing</option>';
+            html += '<option value="played">Played</option>';
+            html += '</select>';
+            html += '</div>';
             // Encode JSON data to prevent HTML attribute issues (using encodeURIComponent for Unicode support)
             const encodedGameData = encodeURIComponent(JSON.stringify(gameDataForDB));
-			html += '</div>';
             html += '<button type="button" class="button button-primary add-game-btn" data-game-encoded="' + encodedGameData + '">Add Game</button>';
+            html += '</div>';
             html += '</div>';
         });
         
@@ -318,6 +329,11 @@
             return;
         }
         
+        // Get the selected status from the dropdown
+        const gameResultItem = button.closest('.game-result-item');
+        const statusSelect = gameResultItem.querySelector('.game-status-select');
+        const selectedStatus = statusSelect ? statusSelect.value : 'wishlist';
+        
         // Show loading state
         button.disabled = true;
         button.textContent = 'Adding...';
@@ -326,6 +342,7 @@
         const formData = new FormData();
         formData.append('action', 'game_log_add_game');
         formData.append('game_data', JSON.stringify(gameData));
+        formData.append('game_status', selectedStatus);
         formData.append('nonce', gameLogAjax.nonce);
         
         
@@ -396,6 +413,111 @@
                 }
             }, 500);
         }, 5000);
+    }
+
+    /**
+     * Initialize bulk actions functionality
+     */
+    function initBulkActions() {
+        const bulkActionSelect = document.getElementById('bulk-action-selector-top');
+        const newStatusSelect = document.getElementById('new-status-selector');
+        const selectAllCheckbox = document.getElementById('cb-select-all-1');
+        const gameCheckboxes = document.querySelectorAll('.game-checkbox');
+        const bulkForm = document.getElementById('bulk-actions-form');
+
+        if (!bulkActionSelect || !newStatusSelect || !selectAllCheckbox || !bulkForm) {
+            return;
+        }
+
+        // Handle bulk action selection
+        bulkActionSelect.addEventListener('change', function() {
+            if (this.value === 'change_status') {
+                newStatusSelect.style.display = 'inline-block';
+            } else {
+                newStatusSelect.style.display = 'none';
+            }
+        });
+
+        // Handle select all checkbox
+        selectAllCheckbox.addEventListener('change', function() {
+            gameCheckboxes.forEach(function(checkbox) {
+                checkbox.checked = this.checked;
+            });
+        });
+
+        // Handle individual checkbox changes
+        gameCheckboxes.forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                updateSelectAllState();
+            });
+        });
+
+        // Handle form submission
+        bulkForm.addEventListener('submit', function(e) {
+            const selectedGames = Array.from(gameCheckboxes).filter(cb => cb.checked);
+            
+            if (selectedGames.length === 0) {
+                e.preventDefault();
+                alert('Please select at least one game.');
+                return;
+            }
+
+            const bulkAction = bulkActionSelect.value;
+            
+            if (bulkAction === 'change_status') {
+                const newStatus = newStatusSelect.value;
+                if (!newStatus) {
+                    e.preventDefault();
+                    alert('Please select a new status.');
+                    return;
+                }
+                
+                if (!confirm('Are you sure you want to change the status of ' + selectedGames.length + ' game(s)?')) {
+                    e.preventDefault();
+                    return;
+                }
+            } else if (bulkAction === 'delete') {
+                if (!confirm('Are you sure you want to delete ' + selectedGames.length + ' game(s)? This action cannot be undone.')) {
+                    e.preventDefault();
+                    return;
+                }
+            } else if (bulkAction === '-1') {
+                e.preventDefault();
+                alert('Please select a bulk action.');
+                return;
+            }
+        });
+    }
+
+    /**
+     * Update select all checkbox state
+     */
+    function updateSelectAllState() {
+        const selectAllCheckbox = document.getElementById('cb-select-all-1');
+        const gameCheckboxes = document.querySelectorAll('.game-checkbox');
+        
+        if (!selectAllCheckbox || !gameCheckboxes.length) {
+            return;
+        }
+
+        const checkedBoxes = Array.from(gameCheckboxes).filter(cb => cb.checked);
+        
+        if (checkedBoxes.length === 0) {
+            selectAllCheckbox.indeterminate = false;
+            selectAllCheckbox.checked = false;
+        } else if (checkedBoxes.length === gameCheckboxes.length) {
+            selectAllCheckbox.indeterminate = false;
+            selectAllCheckbox.checked = true;
+        } else {
+            selectAllCheckbox.indeterminate = true;
+        }
+    }
+
+    // Initialize bulk actions when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBulkActions);
+    } else {
+        initBulkActions();
     }
     
 })();

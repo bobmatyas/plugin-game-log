@@ -109,6 +109,9 @@ class Game_Log_Ajax_Handler {
 			wp_send_json_error( array( 'message' => esc_html__( 'Invalid game data format', 'game-log' ) ) );
 		}
 
+		// Get game status from POST data.
+		$game_status = sanitize_text_field( wp_unslash( $_POST['game_status'] ?? 'wishlist' ) );
+
 		// Sanitize game data.
 		$sanitized_data = $this->sanitize_game_data( $game_data );
 
@@ -119,7 +122,7 @@ class Game_Log_Ajax_Handler {
 		}
 
 		try {
-			$post_id = $this->create_game_post( $sanitized_data );
+			$post_id = $this->create_game_post( $sanitized_data, $game_status );
 
 			if ( $post_id ) {
 				// Download and set cover image.
@@ -188,11 +191,12 @@ class Game_Log_Ajax_Handler {
 	/**
 	 * Create game post
 	 *
-	 * @param array $data Game data.
+	 * @param array  $data Game data.
+	 * @param string $status Game status slug.
 	 * @return int Post ID.
 	 * @throws Exception If post creation fails.
 	 */
-	private function create_game_post( array $data ): int {
+	private function create_game_post( array $data, string $status = 'wishlist' ): int {
 		$post_data = array(
 			'post_title'   => sanitize_text_field( $data['name'] ),
 			'post_content' => '', // No summary content.
@@ -217,18 +221,19 @@ class Game_Log_Ajax_Handler {
 			update_post_meta( $post_id, $key, $value );
 		}
 
-		// Set default status to "Wishlist".
-		$wishlist_term = get_term_by( 'slug', 'wishlist', 'game_status' );
+		// Set game status.
+		$status_term = get_term_by( 'slug', $status, 'game_status' );
 
-		if ( $wishlist_term ) {
-			wp_set_object_terms( $post_id, array( $wishlist_term->term_id ), 'game_status' );
-		} elseif ( ! term_exists( 'wishlist', 'game_status' ) ) {
-			// Create the wishlist term if it doesn't exist.
-			wp_insert_term( 'Wishlist', 'game_status', array( 'slug' => 'wishlist' ) );
+		if ( $status_term ) {
+			wp_set_object_terms( $post_id, array( $status_term->term_id ), 'game_status' );
+		} elseif ( ! term_exists( $status, 'game_status' ) ) {
+			// Create the status term if it doesn't exist.
+			$status_name = ucfirst( $status );
+			wp_insert_term( $status_name, 'game_status', array( 'slug' => $status ) );
 			// Try to set it again after creation.
-			$wishlist_term = get_term_by( 'slug', 'wishlist', 'game_status' );
-			if ( $wishlist_term ) {
-				wp_set_object_terms( $post_id, array( $wishlist_term->term_id ), 'game_status' );
+			$status_term = get_term_by( 'slug', $status, 'game_status' );
+			if ( $status_term ) {
+				wp_set_object_terms( $post_id, array( $status_term->term_id ), 'game_status' );
 			}
 		}
 

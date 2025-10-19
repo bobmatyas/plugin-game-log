@@ -102,8 +102,42 @@ class Game_Log_Post_Type {
 		$release_date = get_post_meta( $post->ID, '_game_release_date', true );
 		$igdb_id      = get_post_meta( $post->ID, '_game_igdb_id', true );
 
+		// Get current game status terms.
+		$current_status_terms = wp_get_object_terms( $post->ID, 'game_status', array( 'fields' => 'ids' ) );
+		$current_status_id    = ! empty( $current_status_terms ) ? $current_status_terms[0] : 0;
+
+		// Get all game status terms.
+		$status_terms = get_terms(
+			array(
+				'taxonomy'   => 'game_status',
+				'hide_empty' => false,
+			)
+		);
+
 		?>
 		<table class="form-table">
+			<tr>
+				<th scope="row">
+					<label for="game_status"><?php esc_html_e( 'Status', 'game-log' ); ?></label>
+				</th>
+				<td>
+					<select id="game_status" name="game_status">
+						<option value=""><?php esc_html_e( 'Select a status...', 'game-log' ); ?></option>
+						<?php
+						foreach ( $status_terms as $term ) {
+							$selected = selected( $current_status_id, $term->term_id, false );
+							printf(
+								'<option value="%s" %s>%s</option>',
+								esc_attr( $term->term_id ),
+								esc_attr( $selected ),
+								esc_html( $term->name )
+							);
+						}
+						?>
+					</select>
+					<p class="description"><?php esc_html_e( 'Current status of this game', 'game-log' ); ?></p>
+				</td>
+			</tr>
 			<tr>
 				<th scope="row">
 					<label for="game_rating"><?php esc_html_e( 'Rating', 'game-log' ); ?></label>
@@ -166,6 +200,22 @@ class Game_Log_Post_Type {
 			if ( isset( $_POST[ $field ] ) ) {
 				$value = call_user_func( $sanitize_callback, sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) );
 				update_post_meta( $post_id, '_' . $field, $value );
+			}
+		}
+
+		// Save game status.
+		if ( isset( $_POST['game_status'] ) ) {
+			$status_id = intval( $_POST['game_status'] );
+
+			if ( $status_id > 0 ) {
+				// Verify the term exists and belongs to game_status taxonomy.
+				$term = get_term( $status_id, 'game_status' );
+				if ( $term && ! is_wp_error( $term ) ) {
+					wp_set_object_terms( $post_id, array( $status_id ), 'game_status' );
+				}
+			} else {
+				// If no status selected, remove all status terms.
+				wp_set_object_terms( $post_id, array(), 'game_status' );
 			}
 		}
 	}
