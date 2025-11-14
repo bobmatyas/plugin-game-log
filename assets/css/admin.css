@@ -264,6 +264,42 @@ tr:hover .game-checkbox {
         min-width: 110px;
         font-size: 14px;
     }
+    
+    /* Hide bulk actions on mobile */
+    .game-log-bulk-actions {
+        display: none;
+    }
+    
+    /* Hide checkboxes on mobile */
+    .game-log-list .wp-list-table .check-column,
+    .game-log-list .wp-list-table .column-cb {
+        display: none;
+    }
+    
+    /* Hide cover image column on mobile */
+    .game-log-list .wp-list-table th.column-cover,
+    .game-log-list .wp-list-table td[data-colname*="Cover"] {
+        display: none;
+    }
+    
+    /* Ensure buttons in actions column stack on mobile */
+    .game-log-list .wp-list-table td[data-colname*="Actions"] .button {
+        display: block;
+        margin-bottom: 5px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .game-log-list .wp-list-table td[data-colname*="Actions"] .button:last-child {
+        margin-bottom: 0;
+    }
+	.game-log-list .wp-list-table tr:not(.inline-edit-row):not(.no-items) td:not(.column-primary)::before 
+	{
+		content: unset;
+	}
+	.game-log-list     .wp-list-table tr:not(.inline-edit-row):not(.no-items) td.column-primary~td:not(.check-column) {
+        padding: 3px 8px 35px 35%;
+    }
 }
 
 .game-details h3 {

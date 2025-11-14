@@ -411,12 +411,12 @@ class Game_Log_Admin {
 								<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'game-log' ); ?></label>
 								<input id="cb-select-all-1" type="checkbox" />
 							</td>
-							<th><?php esc_html_e( 'Cover', 'game-log' ); ?></th>
-							<th><?php esc_html_e( 'Title', 'game-log' ); ?></th>
-							<th><?php esc_html_e( 'Status', 'game-log' ); ?></th>
-							<th><?php esc_html_e( 'Rating', 'game-log' ); ?></th>
-							<th><?php esc_html_e( 'Release Date', 'game-log' ); ?></th>
-							<th><?php esc_html_e( 'Actions', 'game-log' ); ?></th>
+							<th class="manage-column column-cover"><?php esc_html_e( 'Cover', 'game-log' ); ?></th>
+							<th class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'game-log' ); ?></th>
+							<th class="manage-column column-status"><?php esc_html_e( 'Status', 'game-log' ); ?></th>
+							<th class="manage-column column-rating"><?php esc_html_e( 'Rating', 'game-log' ); ?></th>
+							<th class="manage-column column-release-date"><?php esc_html_e( 'Release Date', 'game-log' ); ?></th>
+							<th class="manage-column column-actions"><?php esc_html_e( 'Actions', 'game-log' ); ?></th>
 						</tr>
 					</thead>
 				<tbody>
@@ -437,20 +437,21 @@ class Game_Log_Admin {
 								<label class="screen-reader-text" for="game_<?php echo esc_attr( $game_id ); ?>"><?php esc_html_e( 'Select', 'game-log' ); ?> <?php the_title(); ?></label>
 								<input type="checkbox" name="game_ids[]" value="<?php echo esc_attr( $game_id ); ?>" id="game_<?php echo esc_attr( $game_id ); ?>" class="game-checkbox" />
 							</th>
-							<td>
+							<td data-colname="<?php esc_attr_e( 'Cover', 'game-log' ); ?>">
 								<?php if ( has_post_thumbnail() ) : ?>
 									<?php echo get_the_post_thumbnail( get_the_ID(), 'full' ); ?>
 								<?php else : ?>
 									<div class="no-thumbnail"><?php esc_html_e( 'No Image', 'game-log' ); ?></div>
 								<?php endif; ?>
 							</td>
-							<td>
+							<td data-colname="<?php esc_attr_e( 'Title', 'game-log' ); ?>" class="column-title column-primary">
 								<strong><a href="<?php echo esc_url( get_edit_post_link( $game_id ) ); ?>"><?php the_title(); ?></a></strong>
+								<button type="button" class="toggle-row"><span class="screen-reader-text"><?php esc_html_e( 'Show more details', 'game-log' ); ?></span></button>
 							</td>
-							<td><?php echo esc_html( $status ); ?></td>
-							<td><?php echo $rating ? esc_html( $rating ) . '/10' : '-'; ?></td>
-							<td><?php echo $release_date ? esc_html( gmdate( 'M j, Y', strtotime( $release_date ) ) ) : '-'; ?></td>
-							<td>
+							<td data-colname="<?php esc_attr_e( 'Status', 'game-log' ); ?>"><?php echo esc_html( $status ); ?></td>
+							<td data-colname="<?php esc_attr_e( 'Rating', 'game-log' ); ?>"><?php echo $rating ? esc_html( $rating ) . '/10' : '-'; ?></td>
+							<td data-colname="<?php esc_attr_e( 'Release Date', 'game-log' ); ?>"><?php echo $release_date ? esc_html( gmdate( 'M j, Y', strtotime( $release_date ) ) ) : '-'; ?></td>
+							<td data-colname="<?php esc_attr_e( 'Actions', 'game-log' ); ?>">
 								<a href="<?php echo esc_url( get_edit_post_link( $game_id ) ); ?>" class="button button-small"><?php esc_html_e( 'Edit', 'game-log' ); ?></a>
 								<a href="<?php echo esc_url( get_delete_post_link( $game_id ) ); ?>" class="button button-small" onclick="return confirm('Are you sure you want to delete this game?' ); ?>')"><?php esc_html_e( 'Delete', 'game-log' ); ?></a>
 							</td>
