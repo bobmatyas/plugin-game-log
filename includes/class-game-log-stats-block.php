@@ -51,7 +51,7 @@ class Game_Log_Stats_Block {
 		if ( ! $category_exists ) {
 			$categories[] = array(
 				'slug'  => 'gamelog',
-				'title' => __( '🎮 Game Log', 'game-log' ),
+				'title' => __( '🎮 Mode7 Game Log', 'mode7-game-log' ),
 			);
 		}
 
@@ -126,35 +126,35 @@ class Game_Log_Stats_Block {
 			<?php if ( $show_total ) : ?>
 				<div class="stat-box">
 					<h3><?php echo esc_html( $total_games ); ?></h3>
-					<p><?php esc_html_e( 'Total Games', 'game-log' ); ?></p>
+					<p><?php esc_html_e( 'Total Games', 'mode7-game-log' ); ?></p>
 				</div>
 			<?php endif; ?>
 			
 			<?php if ( $show_played ) : ?>
 				<div class="stat-box">
 					<h3><?php echo esc_html( count( $played ) ); ?></h3>
-					<p><?php esc_html_e( 'Played', 'game-log' ); ?></p>
+					<p><?php esc_html_e( 'Played', 'mode7-game-log' ); ?></p>
 				</div>
 			<?php endif; ?>
 			
 			<?php if ( $show_playing ) : ?>
 				<div class="stat-box">
 					<h3><?php echo esc_html( count( $playing ) ); ?></h3>
-					<p><?php esc_html_e( 'Playing', 'game-log' ); ?></p>
+					<p><?php esc_html_e( 'Playing', 'mode7-game-log' ); ?></p>
 				</div>
 			<?php endif; ?>
 			
 			<?php if ( $show_backlog ) : ?>
 				<div class="stat-box">
 					<h3><?php echo esc_html( count( $backlog ) ); ?></h3>
-					<p><?php esc_html_e( 'Backlog', 'game-log' ); ?></p>
+					<p><?php esc_html_e( 'Backlog', 'mode7-game-log' ); ?></p>
 				</div>
 			<?php endif; ?>
 			
 			<?php if ( $show_wishlist ) : ?>
 				<div class="stat-box">
 					<h3><?php echo esc_html( count( $wishlist ) ); ?></h3>
-					<p><?php esc_html_e( 'Wishlist', 'game-log' ); ?></p>
+					<p><?php esc_html_e( 'Wishlist', 'mode7-game-log' ); ?></p>
 				</div>
 			<?php endif; ?>
 		</div>

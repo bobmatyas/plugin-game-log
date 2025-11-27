@@ -29,30 +29,30 @@ class Game_Log_Post_Type {
 	 */
 	public function register_post_type(): void {
 		$labels = array(
-			'name'                  => _x( 'Games', 'Post type general name', 'game-log' ),
-			'singular_name'         => _x( 'Game', 'Post type singular name', 'game-log' ),
-			'menu_name'             => _x( 'Games', 'Admin Menu text', 'game-log' ),
-			'name_admin_bar'        => _x( 'Game', 'Add New on Toolbar', 'game-log' ),
-			'add_new'               => __( 'Add New', 'game-log' ),
-			'add_new_item'          => __( 'Add New Game', 'game-log' ),
-			'new_item'              => __( 'New Game', 'game-log' ),
-			'edit_item'             => __( 'Edit Game', 'game-log' ),
-			'view_item'             => __( 'View Game', 'game-log' ),
-			'all_items'             => __( 'All Games', 'game-log' ),
-			'search_items'          => __( 'Search Games', 'game-log' ),
-			'parent_item_colon'     => __( 'Parent Games:', 'game-log' ),
-			'not_found'             => __( 'No games found.', 'game-log' ),
-			'not_found_in_trash'    => __( 'No games found in Trash.', 'game-log' ),
-			'featured_image'        => _x( 'Game Cover', 'Overrides the "Featured Image" phrase', 'game-log' ),
-			'set_featured_image'    => _x( 'Set game cover', 'Overrides the "Set featured image" phrase', 'game-log' ),
-			'remove_featured_image' => _x( 'Remove game cover', 'Overrides the "Remove featured image" phrase', 'game-log' ),
-			'use_featured_image'    => _x( 'Use as game cover', 'Overrides the "Use as featured image" phrase', 'game-log' ),
-			'archives'              => _x( 'Game archives', 'The post type archive label', 'game-log' ),
-			'insert_into_item'      => _x( 'Insert into game', 'Overrides the "Insert into post"/"Insert into page" phrase', 'game-log' ),
-			'uploaded_to_this_item' => _x( 'Uploaded to this game', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase', 'game-log' ),
-			'filter_items_list'     => _x( 'Filter games list', 'Screen reader text for the filter links', 'game-log' ),
-			'items_list_navigation' => _x( 'Games list navigation', 'Screen reader text for the pagination', 'game-log' ),
-			'items_list'            => _x( 'Games list', 'Screen reader text for the items list', 'game-log' ),
+			'name'                  => _x( 'Games', 'Post type general name', 'mode7-game-log' ),
+			'singular_name'         => _x( 'Game', 'Post type singular name', 'mode7-game-log' ),
+			'menu_name'             => _x( 'Games', 'Admin Menu text', 'mode7-game-log' ),
+			'name_admin_bar'        => _x( 'Game', 'Add New on Toolbar', 'mode7-game-log' ),
+			'add_new'               => __( 'Add New', 'mode7-game-log' ),
+			'add_new_item'          => __( 'Add New Game', 'mode7-game-log' ),
+			'new_item'              => __( 'New Game', 'mode7-game-log' ),
+			'edit_item'             => __( 'Edit Game', 'mode7-game-log' ),
+			'view_item'             => __( 'View Game', 'mode7-game-log' ),
+			'all_items'             => __( 'All Games', 'mode7-game-log' ),
+			'search_items'          => __( 'Search Games', 'mode7-game-log' ),
+			'parent_item_colon'     => __( 'Parent Games:', 'mode7-game-log' ),
+			'not_found'             => __( 'No games found.', 'mode7-game-log' ),
+			'not_found_in_trash'    => __( 'No games found in Trash.', 'mode7-game-log' ),
+			'featured_image'        => _x( 'Game Cover', 'Overrides the "Featured Image" phrase', 'mode7-game-log' ),
+			'set_featured_image'    => _x( 'Set game cover', 'Overrides the "Set featured image" phrase', 'mode7-game-log' ),
+			'remove_featured_image' => _x( 'Remove game cover', 'Overrides the "Remove featured image" phrase', 'mode7-game-log' ),
+			'use_featured_image'    => _x( 'Use as game cover', 'Overrides the "Use as featured image" phrase', 'mode7-game-log' ),
+			'archives'              => _x( 'Game archives', 'The post type archive label', 'mode7-game-log' ),
+			'insert_into_item'      => _x( 'Insert into game', 'Overrides the "Insert into post"/"Insert into page" phrase', 'mode7-game-log' ),
+			'uploaded_to_this_item' => _x( 'Uploaded to this game', 'Overrides the "Uploaded to this post"/"Uploaded to this page" phrase', 'mode7-game-log' ),
+			'filter_items_list'     => _x( 'Filter games list', 'Screen reader text for the filter links', 'mode7-game-log' ),
+			'items_list_navigation' => _x( 'Games list navigation', 'Screen reader text for the pagination', 'mode7-game-log' ),
+			'items_list'            => _x( 'Games list', 'Screen reader text for the items list', 'mode7-game-log' ),
 		);
 
 		$args = array(
@@ -82,7 +82,7 @@ class Game_Log_Post_Type {
 	public function add_meta_boxes(): void {
 		add_meta_box(
 			'game_details',
-			__( 'Game Details', 'game-log' ),
+			__( 'Game Details', 'mode7-game-log' ),
 			array( $this, 'game_details_meta_box' ),
 			'game',
 			'normal',
@@ -118,11 +118,11 @@ class Game_Log_Post_Type {
 		<table class="form-table">
 			<tr>
 				<th scope="row">
-					<label for="game_status"><?php esc_html_e( 'Status', 'game-log' ); ?></label>
+					<label for="game_status"><?php esc_html_e( 'Status', 'mode7-game-log' ); ?></label>
 				</th>
 				<td>
 					<select id="game_status" name="game_status">
-						<option value=""><?php esc_html_e( 'Select a status...', 'game-log' ); ?></option>
+						<option value=""><?php esc_html_e( 'Select a status...', 'mode7-game-log' ); ?></option>
 						<?php
 						foreach ( $status_terms as $term ) {
 							$selected = selected( $current_status_id, $term->term_id, false );
@@ -135,21 +135,21 @@ class Game_Log_Post_Type {
 						}
 						?>
 					</select>
-					<p class="description"><?php esc_html_e( 'Current status of this game', 'game-log' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Current status of this game', 'mode7-game-log' ); ?></p>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="game_rating"><?php esc_html_e( 'Rating', 'game-log' ); ?></label>
+					<label for="game_rating"><?php esc_html_e( 'Rating', 'mode7-game-log' ); ?></label>
 				</th>
 				<td>
 					<input type="number" id="game_rating" name="game_rating" value="<?php echo esc_attr( $rating ); ?>" min="1" max="10" step="0.1" />
-					<p class="description"><?php esc_html_e( 'Rate the game from 1 to 10', 'game-log' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Rate the game from 1 to 10', 'mode7-game-log' ); ?></p>
 				</td>
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="game_release_date"><?php esc_html_e( 'Release Date', 'game-log' ); ?></label>
+					<label for="game_release_date"><?php esc_html_e( 'Release Date', 'mode7-game-log' ); ?></label>
 				</th>
 				<td>
 					<input type="date" id="game_release_date" name="game_release_date" value="<?php echo esc_attr( $release_date ); ?>" />
@@ -157,11 +157,11 @@ class Game_Log_Post_Type {
 			</tr>
 			<tr>
 				<th scope="row">
-					<label for="game_igdb_id"><?php esc_html_e( 'IGDB ID', 'game-log' ); ?></label>
+					<label for="game_igdb_id"><?php esc_html_e( 'IGDB ID', 'mode7-game-log' ); ?></label>
 				</th>
 				<td>
 					<input type="text" id="game_igdb_id" name="game_igdb_id" value="<?php echo esc_attr( $igdb_id ); ?>" readonly />
-					<p class="description"><?php esc_html_e( 'Internal IGDB identifier', 'game-log' ); ?></p>
+					<p class="description"><?php esc_html_e( 'Internal IGDB identifier', 'mode7-game-log' ); ?></p>
 				</td>
 			</tr>
 		</table>

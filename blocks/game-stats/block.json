@@ -8,7 +8,7 @@
 	"icon": "games",
 	"description": "Display your game collection statistics including total games, played, playing, backlog, and wishlist counts.",
 	"keywords": ["games", "statistics", "collection", "gaming"],
-	"textdomain": "game-log",
+	"textdomain": "mode7-game-log",
 	"editorStyle": "file:./editor.css",
 	"style": "file:./style.css",
 	"attributes": {

@@ -37,10 +37,10 @@ class Game_Log_Admin {
 	public function add_admin_menu(): void {
 		// Main menu page.
 		add_menu_page(
-			__( 'Game Log', 'game-log' ),
-			__( 'Game Log', 'game-log' ),
+			__( 'Mode7 Game Log', 'mode7-game-log' ),
+			__( 'Mode7 Game Log', 'mode7-game-log' ),
 			'manage_options',
-			'game-log',
+			'mode7-game-log',
 			array( $this, 'games_list_page' ),
 			'dashicons-games',
 			30
@@ -48,31 +48,31 @@ class Game_Log_Admin {
 
 		// Games list submenu (same as main page).
 		add_submenu_page(
-			'game-log',
-			__( 'All Games', 'game-log' ),
-			__( 'All Games', 'game-log' ),
+			'mode7-game-log',
+			__( 'All Games', 'mode7-game-log' ),
+			__( 'All Games', 'mode7-game-log' ),
 			'manage_options',
-			'game-log',
+			'mode7-game-log',
 			array( $this, 'games_list_page' )
 		);
 
 		// Add Game submenu.
 		add_submenu_page(
-			'game-log',
-			__( 'Add Game', 'game-log' ),
-			__( 'Add Game', 'game-log' ),
+			'mode7-game-log',
+			__( 'Add Game', 'mode7-game-log' ),
+			__( 'Add Game', 'mode7-game-log' ),
 			'manage_options',
-			'game-log-add',
+			'mode7-game-log-add',
 			array( $this, 'add_game_page' )
 		);
 
 		// Settings submenu.
 		add_submenu_page(
-			'game-log',
-			__( 'Settings', 'game-log' ),
-			__( 'Settings', 'game-log' ),
+			'mode7-game-log',
+			__( 'Settings', 'mode7-game-log' ),
+			__( 'Settings', 'mode7-game-log' ),
 			'manage_options',
-			'game-log-settings',
+			'mode7-game-log-settings',
 			array( $this, 'settings_page' )
 		);
 	}
@@ -83,23 +83,23 @@ class Game_Log_Admin {
 	public function add_game_page(): void {
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Add Game', 'game-log' ); ?></h1>
+			<h1><?php esc_html_e( 'Add Game', 'mode7-game-log' ); ?></h1>
 			
 			<div class="game-search-container">
 				<form id="game-search-form" class="game-search-form">
 					<div class="search-field-group">
-						<p><?php esc_html_e( 'Search the Internet Gaming Database for a game to add to your log.', 'game-log' ); ?></p>
-						<label for="game-search-input"><?php esc_html_e( 'Search for a game:', 'game-log' ); ?></label>
+						<p><?php esc_html_e( 'Search the Internet Gaming Database for a game to add to your log.', 'mode7-game-log' ); ?></p>
+						<label for="game-search-input"><?php esc_html_e( 'Search for a game:', 'mode7-game-log' ); ?></label>
 						<div class="search-input-wrapper">
 							<input 
 								type="text" 
 								id="game-search-input" 
 								name="game_search" 
-								placeholder="<?php esc_attr_e( 'Enter game name...', 'game-log' ); ?>"
+								placeholder="<?php esc_attr_e( 'Enter game name...', 'mode7-game-log' ); ?>"
 								class="regular-text"
 							/>
 							<button type="submit" class="button button-primary">
-								<?php esc_html_e( 'Search', 'game-log' ); ?>
+								<?php esc_html_e( 'Search', 'mode7-game-log' ); ?>
 							</button>
 						</div>
 					</div>
@@ -120,14 +120,14 @@ class Game_Log_Admin {
 
 		add_settings_section(
 			'game_log_igdb_section',
-			__( 'IGDB API Settings', 'game-log' ),
+			__( 'IGDB API Settings', 'mode7-game-log' ),
 			array( $this, 'igdb_section_callback' ),
 			'game_log_settings'
 		);
 
 		add_settings_field(
 			'game_log_igdb_client_id',
-			__( 'Client ID', 'game-log' ),
+			__( 'Client ID', 'mode7-game-log' ),
 			array( $this, 'igdb_client_id_callback' ),
 			'game_log_settings',
 			'game_log_igdb_section'
@@ -135,7 +135,7 @@ class Game_Log_Admin {
 
 		add_settings_field(
 			'game_log_igdb_client_secret',
-			__( 'Client Secret', 'game-log' ),
+			__( 'Client Secret', 'mode7-game-log' ),
 			array( $this, 'igdb_client_secret_callback' ),
 			'game_log_settings',
 			'game_log_igdb_section'
@@ -146,8 +146,8 @@ class Game_Log_Admin {
 	 * IGDB section callback
 	 */
 	public function igdb_section_callback(): void {
-		echo '<p>' . esc_html__( 'Enter your IGDB API credentials to enable game search functionality.', 'game-log' ) . '</p>';
-		echo '<p><a href="https://api.igdb.com/" target="_blank">' . esc_html__( 'Get your API credentials from IGDB', 'game-log' ) . '</a></p>';
+		echo '<p>' . esc_html__( 'Enter your IGDB API credentials to enable game search functionality.', 'mode7-game-log' ) . '</p>';
+		echo '<p><a href="https://api.igdb.com/" target="_blank">' . esc_html__( 'Get your API credentials from IGDB', 'mode7-game-log' ) . '</a></p>';
 	}
 
 	/**
@@ -181,7 +181,7 @@ class Game_Log_Admin {
 			add_settings_error(
 				'game_log_igdb_client_id',
 				'invalid_client_id',
-				__( 'Invalid Client ID format. Only alphanumeric characters, hyphens, and underscores are allowed.', 'game-log' )
+				__( 'Invalid Client ID format. Only alphanumeric characters, hyphens, and underscores are allowed.', 'mode7-game-log' )
 			);
 			return get_option( 'game_log_igdb_client_id', '' );
 		}
@@ -204,7 +204,7 @@ class Game_Log_Admin {
 			add_settings_error(
 				'game_log_igdb_client_secret',
 				'invalid_client_secret',
-				__( 'Invalid Client Secret format. Only alphanumeric characters, hyphens, and underscores are allowed.', 'game-log' )
+				__( 'Invalid Client Secret format. Only alphanumeric characters, hyphens, and underscores are allowed.', 'mode7-game-log' )
 			);
 			return get_option( 'game_log_igdb_client_secret', '' );
 		}
@@ -219,7 +219,7 @@ class Game_Log_Admin {
 		$default_page = new Game_Log_Default_Page();
 		?>
 		<div class="wrap">
-			<h1><?php esc_html_e( 'Game Log Settings', 'game-log' ); ?></h1>
+			<h1><?php esc_html_e( 'Mode7 Game Log Settings', 'mode7-game-log' ); ?></h1>
 			
 			<form method="post" action="options.php">
 				<?php
@@ -250,9 +250,9 @@ class Game_Log_Admin {
 	public function games_list_page(): void {
 		?>
 		<div class="wrap">
-			<h1 class="wp-heading-inline"><?php esc_html_e( 'Game Log', 'game-log' ); ?></h1>
+			<h1 class="wp-heading-inline"><?php esc_html_e( 'Mode7 Game Log', 'mode7-game-log' ); ?></h1>
 			<div class="game-log-add-holder">
-				<button type="button" class="page-title-action button button-primary" id="search-games-btn"><?php esc_html_e( 'Add A Game', 'game-log' ); ?></button>
+				<button type="button" class="page-title-action button button-primary" id="search-games-btn"><?php esc_html_e( 'Add A Game', 'mode7-game-log' ); ?></button>
 			</div>
 			<hr class="wp-header-end">
 			
@@ -260,15 +260,15 @@ class Game_Log_Admin {
 			<dialog id="game-search-modal" class="game-search-modal" style="display: none;">
 
 					<div class="game-search-modal-header">
-						<h2><?php esc_html_e( 'Search Games', 'game-log' ); ?></h2>
+						<h2><?php esc_html_e( 'Search Games', 'mode7-game-log' ); ?></h2>
 						<span class="close">&times;</span>
 					</div>
 					<div class="game-search-modal-body">
-						<p><?php esc_html_e( 'Search the Internet Gaming Database for to add a game to your log.', 'game-log' ); ?></p>	
+						<p><?php esc_html_e( 'Search the Internet Gaming Database for to add a game to your log.', 'mode7-game-log' ); ?></p>	
 						<div class="game-search-form">
 							
-							<input type="text" id="game-search-input" placeholder="<?php esc_attr_e( 'Enter game name...', 'game-log' ); ?>" class="regular-text" />
-							<button type="button" id="search-games-submit" class="button button-primary"><?php esc_html_e( 'Search', 'game-log' ); ?></button>
+							<input type="text" id="game-search-input" placeholder="<?php esc_attr_e( 'Enter game name...', 'mode7-game-log' ); ?>" class="regular-text" />
+							<button type="button" id="search-games-submit" class="button button-primary"><?php esc_html_e( 'Search', 'mode7-game-log' ); ?></button>
 						</div>
 						<div id="game-search-results" class="game-search-results"></div>
 					</div>
@@ -305,23 +305,23 @@ class Game_Log_Admin {
 		<div class="game-stats">
 			<div class="stat-box">
 				<h3><?php echo esc_html( $total_games ); ?></h3>
-				<p><?php esc_html_e( 'Total Games', 'game-log' ); ?></p>
+				<p><?php esc_html_e( 'Total Games', 'mode7-game-log' ); ?></p>
 			</div>
 			<div class="stat-box">
 				<h3><?php echo esc_html( count( $played ) ); ?></h3>
-				<p><?php esc_html_e( 'Played', 'game-log' ); ?></p>
+				<p><?php esc_html_e( 'Played', 'mode7-game-log' ); ?></p>
 			</div>
 			<div class="stat-box">
 				<h3><?php echo esc_html( count( $playing ) ); ?></h3>
-				<p><?php esc_html_e( 'Playing', 'game-log' ); ?></p>
+				<p><?php esc_html_e( 'Playing', 'mode7-game-log' ); ?></p>
 			</div>
 			<div class="stat-box">
 				<h3><?php echo esc_html( count( $backlog ) ); ?></h3>
-				<p><?php esc_html_e( 'Backlog', 'game-log' ); ?></p>
+				<p><?php esc_html_e( 'Backlog', 'mode7-game-log' ); ?></p>
 			</div>
 			<div class="stat-box">
 				<h3><?php echo esc_html( count( $wishlist ) ); ?></h3>
-				<p><?php esc_html_e( 'Wishlist', 'game-log' ); ?></p>
+				<p><?php esc_html_e( 'Wishlist', 'mode7-game-log' ); ?></p>
 			</div>
 		</div>
 		<?php
@@ -342,16 +342,16 @@ class Game_Log_Admin {
 
 		?>
 		<form method="get" class="game-filters">
-			<input type="hidden" name="page" value="game-log" />
+			<input type="hidden" name="page" value="mode7-game-log" />
 			<select name="game_status" id="game_status_filter">
-				<option value=""><?php esc_html_e( 'All Statuses', 'game-log' ); ?></option>
+				<option value=""><?php esc_html_e( 'All Statuses', 'mode7-game-log' ); ?></option>
 				<?php foreach ( $statuses as $status ) : ?>
 					<option value="<?php echo esc_attr( $status->slug ); ?>" <?php selected( $current_status, $status->slug ); ?>>
 						<?php echo esc_html( $status->name ); ?>
 					</option>
 				<?php endforeach; ?>
 			</select>
-			<input type="submit" class="button" value="<?php esc_attr_e( 'Filter', 'game-log' ); ?>" />
+			<input type="submit" class="button" value="<?php esc_attr_e( 'Filter', 'mode7-game-log' ); ?>" />
 		</form>
 		<?php
 	}
@@ -375,6 +375,7 @@ class Game_Log_Admin {
 				array(
 					'taxonomy' => 'game_status',
 					'field'    => 'slug',
+					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
 					'terms'    => sanitize_text_field( wp_unslash( $_GET['game_status'] ) ),
 				),
 			);
@@ -388,35 +389,35 @@ class Game_Log_Admin {
 				<?php wp_nonce_field( 'game_log_bulk_actions', 'game_log_bulk_nonce' ); ?>
 				<div class="game-log-bulk-actions top">
 					<div class="alignleft actions bulkactions">
-						<label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'game-log' ); ?></label>
+						<label for="bulk-action-selector-top" class="screen-reader-text"><?php esc_html_e( 'Select bulk action', 'mode7-game-log' ); ?></label>
 						<select name="bulk_action" id="bulk-action-selector-top">
-							<option value="-1"><?php esc_html_e( 'Bulk actions', 'game-log' ); ?></option>
-							<option value="change_status"><?php esc_html_e( 'Change Status', 'game-log' ); ?></option>
-							<option value="delete"><?php esc_html_e( 'Delete', 'game-log' ); ?></option>
+							<option value="-1"><?php esc_html_e( 'Bulk actions', 'mode7-game-log' ); ?></option>
+							<option value="change_status"><?php esc_html_e( 'Change Status', 'mode7-game-log' ); ?></option>
+							<option value="delete"><?php esc_html_e( 'Delete', 'mode7-game-log' ); ?></option>
 						</select>
 						<select name="new_status" id="new-status-selector" style="display: none;">
-							<option value=""><?php esc_html_e( 'Select new status...', 'game-log' ); ?></option>
-							<option value="wishlist"><?php esc_html_e( 'Wishlist', 'game-log' ); ?></option>
-							<option value="backlog"><?php esc_html_e( 'Backlog', 'game-log' ); ?></option>
-							<option value="playing"><?php esc_html_e( 'Playing', 'game-log' ); ?></option>
-							<option value="played"><?php esc_html_e( 'Played', 'game-log' ); ?></option>
+							<option value=""><?php esc_html_e( 'Select new status...', 'mode7-game-log' ); ?></option>
+							<option value="wishlist"><?php esc_html_e( 'Wishlist', 'mode7-game-log' ); ?></option>
+							<option value="backlog"><?php esc_html_e( 'Backlog', 'mode7-game-log' ); ?></option>
+							<option value="playing"><?php esc_html_e( 'Playing', 'mode7-game-log' ); ?></option>
+							<option value="played"><?php esc_html_e( 'Played', 'mode7-game-log' ); ?></option>
 						</select>
-						<input type="submit" id="doaction" class="button action" value="<?php esc_attr_e( 'Apply', 'game-log' ); ?>" />
+						<input type="submit" id="doaction" class="button action" value="<?php esc_attr_e( 'Apply', 'mode7-game-log' ); ?>" />
 					</div>
 				</div>
 				<table class="wp-list-table widefat fixed striped">
 					<thead>
 						<tr>
 							<td class="manage-column column-cb check-column">
-								<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'game-log' ); ?></label>
+								<label class="screen-reader-text" for="cb-select-all-1"><?php esc_html_e( 'Select All', 'mode7-game-log' ); ?></label>
 								<input id="cb-select-all-1" type="checkbox" />
 							</td>
-							<th class="manage-column column-cover"><?php esc_html_e( 'Cover', 'game-log' ); ?></th>
-							<th class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'game-log' ); ?></th>
-							<th class="manage-column column-status"><?php esc_html_e( 'Status', 'game-log' ); ?></th>
-							<th class="manage-column column-rating"><?php esc_html_e( 'Rating', 'game-log' ); ?></th>
-							<th class="manage-column column-release-date"><?php esc_html_e( 'Release Date', 'game-log' ); ?></th>
-							<th class="manage-column column-actions"><?php esc_html_e( 'Actions', 'game-log' ); ?></th>
+							<th class="manage-column column-cover"><?php esc_html_e( 'Cover', 'mode7-game-log' ); ?></th>
+							<th class="manage-column column-title column-primary"><?php esc_html_e( 'Title', 'mode7-game-log' ); ?></th>
+							<th class="manage-column column-status"><?php esc_html_e( 'Status', 'mode7-game-log' ); ?></th>
+							<th class="manage-column column-rating"><?php esc_html_e( 'Rating', 'mode7-game-log' ); ?></th>
+							<th class="manage-column column-release-date"><?php esc_html_e( 'Release Date', 'mode7-game-log' ); ?></th>
+							<th class="manage-column column-actions"><?php esc_html_e( 'Actions', 'mode7-game-log' ); ?></th>
 						</tr>
 					</thead>
 				<tbody>
@@ -434,26 +435,26 @@ class Game_Log_Admin {
 						?>
 						<tr>
 							<th class="check-column">
-								<label class="screen-reader-text" for="game_<?php echo esc_attr( $game_id ); ?>"><?php esc_html_e( 'Select', 'game-log' ); ?> <?php the_title(); ?></label>
+								<label class="screen-reader-text" for="game_<?php echo esc_attr( $game_id ); ?>"><?php esc_html_e( 'Select', 'mode7-game-log' ); ?> <?php the_title(); ?></label>
 								<input type="checkbox" name="game_ids[]" value="<?php echo esc_attr( $game_id ); ?>" id="game_<?php echo esc_attr( $game_id ); ?>" class="game-checkbox" />
 							</th>
-							<td data-colname="<?php esc_attr_e( 'Cover', 'game-log' ); ?>">
+							<td data-colname="<?php esc_attr_e( 'Cover', 'mode7-game-log' ); ?>">
 								<?php if ( has_post_thumbnail() ) : ?>
 									<?php echo get_the_post_thumbnail( get_the_ID(), 'full' ); ?>
 								<?php else : ?>
-									<div class="no-thumbnail"><?php esc_html_e( 'No Image', 'game-log' ); ?></div>
+									<div class="no-thumbnail"><?php esc_html_e( 'No Image', 'mode7-game-log' ); ?></div>
 								<?php endif; ?>
 							</td>
-							<td data-colname="<?php esc_attr_e( 'Title', 'game-log' ); ?>" class="column-title column-primary">
+							<td data-colname="<?php esc_attr_e( 'Title', 'mode7-game-log' ); ?>" class="column-title column-primary">
 								<strong><a href="<?php echo esc_url( get_edit_post_link( $game_id ) ); ?>"><?php the_title(); ?></a></strong>
-								<button type="button" class="toggle-row"><span class="screen-reader-text"><?php esc_html_e( 'Show more details', 'game-log' ); ?></span></button>
+								<button type="button" class="toggle-row"><span class="screen-reader-text"><?php esc_html_e( 'Show more details', 'mode7-game-log' ); ?></span></button>
 							</td>
-							<td data-colname="<?php esc_attr_e( 'Status', 'game-log' ); ?>"><?php echo esc_html( $status ); ?></td>
-							<td data-colname="<?php esc_attr_e( 'Rating', 'game-log' ); ?>"><?php echo $rating ? esc_html( $rating ) . '/10' : '-'; ?></td>
-							<td data-colname="<?php esc_attr_e( 'Release Date', 'game-log' ); ?>"><?php echo $release_date ? esc_html( gmdate( 'M j, Y', strtotime( $release_date ) ) ) : '-'; ?></td>
-							<td data-colname="<?php esc_attr_e( 'Actions', 'game-log' ); ?>">
-								<a href="<?php echo esc_url( get_edit_post_link( $game_id ) ); ?>" class="button button-small"><?php esc_html_e( 'Edit', 'game-log' ); ?></a>
-								<a href="<?php echo esc_url( get_delete_post_link( $game_id ) ); ?>" class="button button-small" onclick="return confirm('Are you sure you want to delete this game?' ); ?>')"><?php esc_html_e( 'Delete', 'game-log' ); ?></a>
+							<td data-colname="<?php esc_attr_e( 'Status', 'mode7-game-log' ); ?>"><?php echo esc_html( $status ); ?></td>
+							<td data-colname="<?php esc_attr_e( 'Rating', 'mode7-game-log' ); ?>"><?php echo $rating ? esc_html( $rating ) . '/10' : '-'; ?></td>
+							<td data-colname="<?php esc_attr_e( 'Release Date', 'mode7-game-log' ); ?>"><?php echo $release_date ? esc_html( gmdate( 'M j, Y', strtotime( $release_date ) ) ) : '-'; ?></td>
+							<td data-colname="<?php esc_attr_e( 'Actions', 'mode7-game-log' ); ?>">
+								<a href="<?php echo esc_url( get_edit_post_link( $game_id ) ); ?>" class="button button-small"><?php esc_html_e( 'Edit', 'mode7-game-log' ); ?></a>
+								<a href="<?php echo esc_url( get_delete_post_link( $game_id ) ); ?>" class="button button-small" onclick="return confirm('Are you sure you want to delete this game?' ); ?>')"><?php esc_html_e( 'Delete', 'mode7-game-log' ); ?></a>
 							</td>
 						</tr>
 					<?php endwhile; ?>
@@ -472,8 +473,8 @@ class Game_Log_Admin {
 				'end_size'     => 1,
 				'mid_size'     => 2,
 				'prev_next'    => true,
-				'prev_text'    => __( '« Previous', 'game-log' ),
-				'next_text'    => __( 'Next »', 'game-log' ),
+				'prev_text'    => __( '« Previous', 'mode7-game-log' ),
+				'next_text'    => __( 'Next »', 'mode7-game-log' ),
 				'add_args'     => false,
 				'add_fragment' => '',
 			);
@@ -485,7 +486,7 @@ class Game_Log_Admin {
 			<?php
 		} else {
 			?>
-			<p><?php esc_html_e( 'No games found.', 'game-log' ); ?></p>
+			<p><?php esc_html_e( 'No games found.', 'mode7-game-log' ); ?></p>
 			<?php
 		}
 
@@ -524,7 +525,7 @@ class Game_Log_Admin {
 		$screen = get_current_screen();
 
 		// Only show on our admin pages.
-		if ( ! $screen || ! in_array( $screen->id, array( 'game', 'edit-game', 'toplevel_page_game-log', 'game-log_page_game-log-settings' ), true ) ) {
+		if ( ! $screen || ! in_array( $screen->id, array( 'game', 'edit-game', 'toplevel_page_mode7-game-log', 'mode7-game-log_page_mode7-game-log-settings' ), true ) ) {
 			return;
 		}
 
@@ -535,10 +536,10 @@ class Game_Log_Admin {
 			?>
 			<div class="notice notice-warning is-dismissible">
 				<p>
-					<strong><?php esc_html_e( 'Game Log:', 'game-log' ); ?></strong>
-					<?php esc_html_e( 'IGDB API credentials are not configured. Please go to', 'game-log' ); ?>
-					<a href="<?php echo esc_url( admin_url( 'admin.php?page=game-log-settings' ) ); ?>"><?php esc_html_e( 'Settings', 'game-log' ); ?></a>
-					<?php esc_html_e( 'to enter your API credentials to enable game search functionality.', 'game-log' ); ?>
+					<strong><?php esc_html_e( 'Mode7 Game Log:', 'mode7-game-log' ); ?></strong>
+					<?php esc_html_e( 'IGDB API credentials are not configured. Please go to', 'mode7-game-log' ); ?>
+					<a href="<?php echo esc_url( admin_url( 'admin.php?page=mode7-game-log-settings' ) ); ?>"><?php esc_html_e( 'Settings', 'mode7-game-log' ); ?></a>
+					<?php esc_html_e( 'to enter your API credentials to enable game search functionality.', 'mode7-game-log' ); ?>
 				</p>
 			</div>
 			<?php
@@ -555,7 +556,7 @@ class Game_Log_Admin {
 	public function modify_add_new_game_url( string $url, string $path ): string {
 		// Check if this is the "Add New" URL for the game post type.
 		if ( 'post-new.php?post_type=game' === $path ) {
-			return admin_url( 'admin.php?page=game-log-add' );
+			return admin_url( 'admin.php?page=mode7-game-log-add' );
 		}
 
 		return $url;
@@ -580,7 +581,7 @@ class Game_Log_Admin {
 
 		// Check user capabilities.
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'game-log' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'mode7-game-log' ) );
 		}
 
 		// Generate the page using the default page class.
@@ -601,7 +602,7 @@ class Game_Log_Admin {
 					$page_url = get_permalink( $result );
 					$message  = sprintf(
 						// translators: %s is the page URL.
-						__( 'Game Log page created successfully! <a href="%s" target="_blank">View Page</a>', 'game-log' ),
+						__( 'Mode7 Game Log page created successfully! <a href="%s" target="_blank">View Page</a>', 'mode7-game-log' ),
 						esc_url( $page_url )
 					);
 					echo '<div class="notice notice-success"><p>' . wp_kses_post( $message ) . '</p></div>';
@@ -621,12 +622,12 @@ class Game_Log_Admin {
 
 		// Verify nonce.
 		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['game_log_bulk_nonce'] ) ), 'game_log_bulk_actions' ) ) {
-			wp_die( esc_html__( 'Security check failed', 'game-log' ) );
+			wp_die( esc_html__( 'Security check failed', 'mode7-game-log' ) );
 		}
 
 		// Check permissions.
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_die( esc_html__( 'Insufficient permissions', 'game-log' ) );
+			wp_die( esc_html__( 'Insufficient permissions', 'mode7-game-log' ) );
 		}
 
 		$bulk_action = sanitize_text_field( wp_unslash( $_POST['bulk_action'] ) );
@@ -685,7 +686,7 @@ class Game_Log_Admin {
 				function () use ( $updated_count, $status_name ) {
 					$message = sprintf(
 						// translators: %1$d is the number of games, %2$s is the status name.
-						_n( '%1$d game status changed to %2$s.', '%1$d games status changed to %2$s.', $updated_count, 'game-log' ),
+						_n( '%1$d game status changed to %2$s.', '%1$d games status changed to %2$s.', $updated_count, 'mode7-game-log' ),
 						$updated_count,
 						$status_name
 					);
@@ -716,7 +717,7 @@ class Game_Log_Admin {
 				function () use ( $deleted_count ) {
 					$message = sprintf(
 						// translators: %d is the number of games.
-						_n( '%d game deleted.', '%d games deleted.', $deleted_count, 'game-log' ),
+						_n( '%d game deleted.', '%d games deleted.', $deleted_count, 'mode7-game-log' ),
 						$deleted_count
 					);
 					echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $message ) . '</p></div>';
@@ -729,27 +730,27 @@ class Game_Log_Admin {
 	 * Admin notice for no games selected
 	 */
 	public function bulk_action_no_games_selected_notice(): void {
-		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Please select at least one game.', 'game-log' ) . '</p></div>';
+		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Please select at least one game.', 'mode7-game-log' ) . '</p></div>';
 	}
 
 	/**
 	 * Admin notice for invalid action
 	 */
 	public function bulk_action_invalid_notice(): void {
-		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Invalid bulk action.', 'game-log' ) . '</p></div>';
+		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Invalid bulk action.', 'mode7-game-log' ) . '</p></div>';
 	}
 
 	/**
 	 * Admin notice for no status selected
 	 */
 	public function bulk_action_no_status_selected_notice(): void {
-		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Please select a new status.', 'game-log' ) . '</p></div>';
+		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Please select a new status.', 'mode7-game-log' ) . '</p></div>';
 	}
 
 	/**
 	 * Admin notice for invalid status
 	 */
 	public function bulk_action_invalid_status_notice(): void {
-		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Invalid status selected.', 'game-log' ) . '</p></div>';
+		echo '<div class="notice notice-error is-dismissible"><p>' . esc_html__( 'Invalid status selected.', 'mode7-game-log' ) . '</p></div>';
 	}
 }

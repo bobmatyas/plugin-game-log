@@ -43,19 +43,19 @@ class Game_Log_Ajax_Handler {
 	public function search_games(): void {
 		// Verify nonce.
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'game_log_nonce' ) ) {
-			wp_die( esc_html__( 'Security check failed', 'game-log' ) );
+			wp_die( esc_html__( 'Security check failed', 'mode7-game-log' ) );
 		}
 
 		// Check permissions.
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_die( esc_html__( 'Insufficient permissions', 'game-log' ) );
+			wp_die( esc_html__( 'Insufficient permissions', 'mode7-game-log' ) );
 		}
 
 		$query = sanitize_text_field( wp_unslash( $_POST['query'] ?? '' ) );
 		$limit = intval( $_POST['limit'] ?? 20 );
 
 		if ( empty( $query ) ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Search query is required', 'game-log' ) ) );
+			wp_send_json_error( array( 'message' => esc_html__( 'Search query is required', 'mode7-game-log' ) ) );
 		}
 
 		try {
@@ -66,9 +66,9 @@ class Game_Log_Ajax_Handler {
 
 			// Provide more helpful error messages.
 			if ( strpos( $message, 'IGDB API credentials not configured' ) !== false ) {
-				$message = esc_html__( 'IGDB API credentials are not configured. Please go to Settings to enter your API credentials.', 'game-log' );
+				$message = esc_html__( 'IGDB API credentials are not configured. Please go to Settings to enter your API credentials.', 'mode7-game-log' );
 			} elseif ( strpos( $message, 'Failed to get IGDB access token' ) !== false ) {
-				$message = esc_html__( 'Failed to authenticate with IGDB API. Please check your credentials.', 'game-log' );
+				$message = esc_html__( 'Failed to authenticate with IGDB API. Please check your credentials.', 'mode7-game-log' );
 			}
 
 			wp_send_json_error( array( 'message' => $message ) );
@@ -81,18 +81,18 @@ class Game_Log_Ajax_Handler {
 	public function add_game(): void {
 		// Verify nonce.
 		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'game_log_nonce' ) ) {
-			wp_die( esc_html__( 'Security check failed', 'game-log' ) );
+			wp_die( esc_html__( 'Security check failed', 'mode7-game-log' ) );
 		}
 
 		// Check permissions.
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			wp_die( esc_html__( 'Insufficient permissions', 'game-log' ) );
+			wp_die( esc_html__( 'Insufficient permissions', 'mode7-game-log' ) );
 		}
 
 		$game_data_raw = sanitize_text_field( wp_unslash( $_POST['game_data'] ?? '' ) );
 
 		if ( empty( $game_data_raw ) ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Game data is required', 'game-log' ) ) );
+			wp_send_json_error( array( 'message' => esc_html__( 'Game data is required', 'mode7-game-log' ) ) );
 		}
 
 		// Parse JSON string to array.
@@ -106,7 +106,7 @@ class Game_Log_Ajax_Handler {
 		$json_error = json_last_error();
 
 		if ( JSON_ERROR_NONE !== $json_error ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Invalid game data format', 'game-log' ) ) );
+			wp_send_json_error( array( 'message' => esc_html__( 'Invalid game data format', 'mode7-game-log' ) ) );
 		}
 
 		// Get game status from POST data.
@@ -118,7 +118,7 @@ class Game_Log_Ajax_Handler {
 		// Check if game already exists.
 		$existing_game = $this->get_game_by_igdb_id( $sanitized_data['igdb_id'] );
 		if ( $existing_game ) {
-			wp_send_json_error( array( 'message' => esc_html__( 'Game already exists in your collection', 'game-log' ) ) );
+			wp_send_json_error( array( 'message' => esc_html__( 'Game already exists in your collection', 'mode7-game-log' ) ) );
 		}
 
 		try {
@@ -135,13 +135,13 @@ class Game_Log_Ajax_Handler {
 
 				wp_send_json_success(
 					array(
-						'message'  => esc_html__( 'Game added successfully', 'game-log' ),
+						'message'  => esc_html__( 'Game added successfully', 'mode7-game-log' ),
 						'post_id'  => $post_id,
 						'edit_url' => esc_url( get_edit_post_link( $post_id, 'raw' ) ),
 					)
 				);
 			} else {
-				wp_send_json_error( array( 'message' => esc_html__( 'Failed to create game post', 'game-log' ) ) );
+				wp_send_json_error( array( 'message' => esc_html__( 'Failed to create game post', 'mode7-game-log' ) ) );
 			}
 		} catch ( Exception $e ) {
 			wp_send_json_error( array( 'message' => esc_html( $e->getMessage() ) ) );

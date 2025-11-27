@@ -43,7 +43,7 @@ class Game_Log_Default_Page {
 		// Check if page already exists.
 		$existing_page = get_page_by_path( self::PAGE_SLUG );
 		if ( $existing_page ) {
-			return new WP_Error( 'page_exists', __( 'Game Log page already exists.', 'game-log' ) );
+			return new WP_Error( 'page_exists', __( 'Mode7 Game Log page already exists.', 'mode7-game-log' ) );
 		}
 
 		// Create the page content with game stats block and patterns.
@@ -51,7 +51,7 @@ class Game_Log_Default_Page {
 
 		// Create the page.
 		$page_data = array(
-			'post_title'   => __( 'Game Log', 'game-log' ),
+			'post_title'   => __( 'Mode7 Game Log', 'mode7-game-log' ),
 			'post_content' => $page_content,
 			'post_status'  => 'publish',
 			'post_type'    => 'page',
@@ -91,25 +91,25 @@ class Game_Log_Default_Page {
 
 		// Add Playing section.
 		$content .= '<!-- wp:heading {"level":2} -->' . "\n";
-		$content .= '<h2>' . __( 'Currently Playing', 'game-log' ) . '</h2>' . "\n";
+		$content .= '<h2>' . __( 'Currently Playing', 'mode7-game-log' ) . '</h2>' . "\n";
 		$content .= '<!-- /wp:heading -->' . "\n\n";
 		$content .= $playing_pattern . "\n\n";
 
 		// Add Backlog section.
 		$content .= '<!-- wp:heading {"level":2} -->' . "\n";
-		$content .= '<h2>' . __( 'Backlog', 'game-log' ) . '</h2>' . "\n";
+		$content .= '<h2>' . __( 'Backlog', 'mode7-game-log' ) . '</h2>' . "\n";
 		$content .= '<!-- /wp:heading -->' . "\n\n";
 		$content .= $backlog_pattern . "\n\n";
 
 		// Add Played section.
 		$content .= '<!-- wp:heading {"level":2} -->' . "\n";
-		$content .= '<h2>' . __( 'Played', 'game-log' ) . '</h2>' . "\n";
+		$content .= '<h2>' . __( 'Played', 'mode7-game-log' ) . '</h2>' . "\n";
 		$content .= '<!-- /wp:heading -->' . "\n\n";
 		$content .= $played_pattern . "\n\n";
 
 		// Add Wishlist section.
 		$content .= '<!-- wp:heading {"level":2} -->' . "\n";
-		$content .= '<h2>' . __( 'Wishlist', 'game-log' ) . '</h2>' . "\n";
+		$content .= '<h2>' . __( 'Wishlist', 'mode7-game-log' ) . '</h2>' . "\n";
 		$content .= '<!-- /wp:heading -->' . "\n\n";
 		$content .= $wishlist_pattern;
 
@@ -126,7 +126,7 @@ class Game_Log_Default_Page {
 		$pattern = WP_Block_Patterns_Registry::get_instance()->get_registered( $pattern_name );
 		if ( ! $pattern ) {
 			// translators: %s is the pattern name.
-			return '<!-- wp:paragraph --><p>' . sprintf( esc_html__( 'Pattern %s not found.', 'game-log' ), $pattern_name ) . '</p><!-- /wp:paragraph -->';
+			return '<!-- wp:paragraph --><p>' . sprintf( esc_html__( 'Pattern %s not found.', 'mode7-game-log' ), $pattern_name ) . '</p><!-- /wp:paragraph -->';
 		}
 
 		return $pattern['content'];
@@ -197,7 +197,7 @@ class Game_Log_Default_Page {
 
 		// Check user capabilities.
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'game-log' ) );
+			wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'mode7-game-log' ) );
 		}
 
 		// Generate the page.
@@ -218,7 +218,7 @@ class Game_Log_Default_Page {
 					// translators: %s is the page URL.
 					$message = sprintf(
 						// translators: %s is the page URL.
-						__( 'Game Log page created successfully! <a href="%s" target="_blank">View Page</a>', 'game-log' ),
+						__( 'Mode7 Game Log page created successfully! <a href="%s" target="_blank">View Page</a>', 'mode7-game-log' ),
 						esc_url( $page_url )
 					);
 					echo '<div class="notice notice-success"><p>' . wp_kses_post( $message ) . '</p></div>';
@@ -239,29 +239,29 @@ class Game_Log_Default_Page {
 		ob_start();
 		?>
 		<div class="game-log-page-generation">
-			<h3><?php esc_html_e( 'Default Game Log Page', 'game-log' ); ?></h3>
-			<p><?php esc_html_e( 'Generate a default page with game statistics and all game collection sections.', 'game-log' ); ?></p>
+			<h3><?php esc_html_e( 'Default Game Log Page', 'mode7-game-log' ); ?></h3>
+			<p><?php esc_html_e( 'Generate a default page with game statistics and all game collection sections.', 'mode7-game-log' ); ?></p>
 			
 			<?php if ( $page_exists && $page_id ) : ?>
 				<div class="notice notice-info inline">
 					<p>
-						<?php esc_html_e( 'Game Log page already exists.', 'game-log' ); ?>
-						<a href="<?php echo esc_url( get_permalink( $page_id ) ); ?>" target="_blank"><?php esc_html_e( 'View Page', 'game-log' ); ?></a> |
-						<a href="<?php echo esc_url( get_edit_post_link( $page_id ) ); ?>"><?php esc_html_e( 'Edit Page', 'game-log' ); ?></a>
+						<?php esc_html_e( 'Default Game Log page already exists.', 'mode7-game-log' ); ?>
+						<a href="<?php echo esc_url( get_permalink( $page_id ) ); ?>" target="_blank"><?php esc_html_e( 'View Page', 'mode7-game-log' ); ?></a> |
+						<a href="<?php echo esc_url( get_edit_post_link( $page_id ) ); ?>"><?php esc_html_e( 'Edit Page', 'mode7-game-log' ); ?></a>
 					</p>
 				</div>
 			<?php else : ?>
 				<?php
 				// Use WordPress's built-in form handling.
 				$generate_url = wp_nonce_url(
-					admin_url( 'admin.php?page=game-log-settings&action=generate_page' ),
+					admin_url( 'admin.php?page=mode7-game-log-settings&action=generate_page' ),
 					'game_log_generate_page',
 					'game_log_generate_page_nonce'
 				);
 				?>
 				<p>
 					<a href="<?php echo esc_url( $generate_url ); ?>" class="button button-primary">
-						<?php esc_html_e( 'Generate Game Log Page', 'game-log' ); ?>
+						<?php esc_html_e( 'Generate Mode7 Game Log Page', 'mode7-game-log' ); ?>
 					</a>
 				</p>
 			<?php endif; ?>

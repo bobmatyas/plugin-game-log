@@ -27,31 +27,31 @@ class Game_Log_Taxonomy {
 	 */
 	public function register_taxonomy(): void {
 		$labels = array(
-			'name'                       => _x( 'Game Status', 'Taxonomy general name', 'game-log' ),
-			'singular_name'              => _x( 'Game Status', 'Taxonomy singular name', 'game-log' ),
-			'menu_name'                  => _x( 'Game Status', 'Admin menu name', 'game-log' ),
-			'all_items'                  => _x( 'All Game Statuses', 'All items', 'game-log' ),
-			'parent_item'                => _x( 'Parent Game Status', 'Parent item', 'game-log' ),
-			'parent_item_colon'          => _x( 'Parent Game Status:', 'Parent item colon', 'game-log' ),
-			'new_item_name'              => _x( 'New Game Status Name', 'New item name', 'game-log' ),
-			'add_new_item'               => _x( 'Add New Game Status', 'Add new item', 'game-log' ),
-			'edit_item'                  => _x( 'Edit Game Status', 'Edit item', 'game-log' ),
-			'update_item'                => _x( 'Update Game Status', 'Update item', 'game-log' ),
-			'view_item'                  => _x( 'View Game Status', 'View item', 'game-log' ),
-			'separate_items_with_commas' => _x( 'Separate game statuses with commas', 'Separate items with commas', 'game-log' ),
-			'add_or_remove_items'        => _x( 'Add or remove game statuses', 'Add or remove items', 'game-log' ),
-			'choose_from_most_used'      => _x( 'Choose from the most used', 'Choose from most used', 'game-log' ),
-			'popular_items'              => _x( 'Popular Game Statuses', 'Popular items', 'game-log' ),
-			'search_items'               => _x( 'Search Game Statuses', 'Search items', 'game-log' ),
-			'not_found'                  => _x( 'Not Found', 'Not found', 'game-log' ),
-			'no_terms'                   => _x( 'No game statuses', 'No terms', 'game-log' ),
-			'items_list'                 => _x( 'Game statuses list', 'Items list', 'game-log' ),
-			'items_list_navigation'      => _x( 'Game statuses list navigation', 'Items list navigation', 'game-log' ),
+			'name'                       => _x( 'Game Status', 'Taxonomy general name', 'mode7-game-log' ),
+			'singular_name'              => _x( 'Game Status', 'Taxonomy singular name', 'mode7-game-log' ),
+			'menu_name'                  => _x( 'Game Status', 'Admin menu name', 'mode7-game-log' ),
+			'all_items'                  => _x( 'All Game Statuses', 'All items', 'mode7-game-log' ),
+			'parent_item'                => _x( 'Parent Game Status', 'Parent item', 'mode7-game-log' ),
+			'parent_item_colon'          => _x( 'Parent Game Status:', 'Parent item colon', 'mode7-game-log' ),
+			'new_item_name'              => _x( 'New Game Status Name', 'New item name', 'mode7-game-log' ),
+			'add_new_item'               => _x( 'Add New Game Status', 'Add new item', 'mode7-game-log' ),
+			'edit_item'                  => _x( 'Edit Game Status', 'Edit item', 'mode7-game-log' ),
+			'update_item'                => _x( 'Update Game Status', 'Update item', 'mode7-game-log' ),
+			'view_item'                  => _x( 'View Game Status', 'View item', 'mode7-game-log' ),
+			'separate_items_with_commas' => _x( 'Separate game statuses with commas', 'Separate items with commas', 'mode7-game-log' ),
+			'add_or_remove_items'        => _x( 'Add or remove game statuses', 'Add or remove items', 'mode7-game-log' ),
+			'choose_from_most_used'      => _x( 'Choose from the most used', 'Choose from most used', 'mode7-game-log' ),
+			'popular_items'              => _x( 'Popular Game Statuses', 'Popular items', 'mode7-game-log' ),
+			'search_items'               => _x( 'Search Game Statuses', 'Search items', 'mode7-game-log' ),
+			'not_found'                  => _x( 'Not Found', 'Not found', 'mode7-game-log' ),
+			'no_terms'                   => _x( 'No game statuses', 'No terms', 'mode7-game-log' ),
+			'items_list'                 => _x( 'Game statuses list', 'Items list', 'mode7-game-log' ),
+			'items_list_navigation'      => _x( 'Game statuses list navigation', 'Items list navigation', 'mode7-game-log' ),
 		);
 
 		$args = array(
 			'labels'             => $labels,
-			'description'        => __( 'Game status taxonomy for organizing games', 'game-log' ),
+			'description'        => __( 'Game status taxonomy for organizing games', 'mode7-game-log' ),
 			'hierarchical'       => true,
 			'public'             => true,
 			'publicly_queryable' => true,
@@ -75,20 +75,20 @@ class Game_Log_Taxonomy {
 	public function create_default_terms(): void {
 		$default_terms = array(
 			'played'   => array(
-				'name'        => __( 'Played', 'game-log' ),
-				'description' => __( 'Games you have completed', 'game-log' ),
+				'name'        => __( 'Played', 'mode7-game-log' ),
+				'description' => __( 'Games you have completed', 'mode7-game-log' ),
 			),
 			'playing'  => array(
-				'name'        => __( 'Playing', 'game-log' ),
-				'description' => __( 'Games you are currently playing', 'game-log' ),
+				'name'        => __( 'Playing', 'mode7-game-log' ),
+				'description' => __( 'Games you are currently playing', 'mode7-game-log' ),
 			),
 			'backlog'  => array(
-				'name'        => __( 'Backlog', 'game-log' ),
-				'description' => __( 'Games you own but haven\'t started', 'game-log' ),
+				'name'        => __( 'Backlog', 'mode7-game-log' ),
+				'description' => __( 'Games you own but haven\'t started', 'mode7-game-log' ),
 			),
 			'wishlist' => array(
-				'name'        => __( 'Wishlist', 'game-log' ),
-				'description' => __( 'Games you want to play', 'game-log' ),
+				'name'        => __( 'Wishlist', 'mode7-game-log' ),
+				'description' => __( 'Games you want to play', 'mode7-game-log' ),
 			),
 		);
 

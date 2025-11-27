@@ -29,7 +29,7 @@ class Game_Log_Meta_Fields {
 		$meta_fields = array(
 			'game_rating'       => array(
 				'type'              => 'number',
-				'description'       => __( 'Game rating from 1 to 10', 'game-log' ),
+				'description'       => __( 'Game rating from 1 to 10', 'mode7-game-log' ),
 				'single'            => true,
 				'sanitize_callback' => array( $this, 'sanitize_rating' ),
 				'auth_callback'     => array( $this, 'meta_auth_callback' ),
@@ -37,7 +37,7 @@ class Game_Log_Meta_Fields {
 			),
 			'game_release_date' => array(
 				'type'              => 'string',
-				'description'       => __( 'Game release date', 'game-log' ),
+				'description'       => __( 'Game release date', 'mode7-game-log' ),
 				'single'            => true,
 				'sanitize_callback' => 'sanitize_text_field',
 				'auth_callback'     => array( $this, 'meta_auth_callback' ),
@@ -45,7 +45,7 @@ class Game_Log_Meta_Fields {
 			),
 			'game_igdb_id'      => array(
 				'type'              => 'string',
-				'description'       => __( 'IGDB game ID', 'game-log' ),
+				'description'       => __( 'IGDB game ID', 'mode7-game-log' ),
 				'single'            => true,
 				'sanitize_callback' => 'sanitize_text_field',
 				'auth_callback'     => array( $this, 'meta_auth_callback' ),

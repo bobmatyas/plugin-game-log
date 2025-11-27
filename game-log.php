@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Game Log
+ * Plugin Name: Mode7 Game Log
  * Plugin URI: https://www.bobmatyas.com
  * Description: A WordPress plugin to track video games you've played, are playing, or want to play using IGDB.com database.
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Bob Matyas
  * License: GPL v2 or later
- * Text Domain: game-log
+ * Text Domain: mode7-game-log
  *
  * @package Game_Log
  */
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'GAME_LOG_VERSION', '1.0.2' );
+define( 'GAME_LOG_VERSION', '1.0.3' );
 define( 'GAME_LOG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GAME_LOG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GAME_LOG_PLUGIN_FILE', __FILE__ );
@@ -87,7 +87,7 @@ function gamelog_register_block_patterns() {
 	// Create a category for your plugin's patterns.
 	register_block_pattern_category(
 		'gamelog',
-		array( 'label' => __( 'Game Log Patterns', 'game-log' ) )
+		array( 'label' => __( 'Game Log Patterns', 'mode7-game-log' ) )
 	);
 
 	// Load all PHP files inside /patterns.

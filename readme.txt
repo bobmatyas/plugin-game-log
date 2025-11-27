@@ -1,10 +1,10 @@
-=== Game Log ===
+=== Mode7 Game Log ===
 Contributors: lastsplash
 Tags: games, gaming, video games, game tracking, 
 Requires at least: 6.8
 Tested up to: 6.8
 Requires PHP: 8.2
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ A  plugin for tracking video games you've played, are currently playing, or want
 
 == Description ==
 
-Game Log is a powerful WordPress plugin designed for gamers who want to track and organize their video game collection. Whether you're a casual gamer or a serious collector, this plugin helps you keep track of games you've played, are currently playing, or want to play in the future.
+Mode7 Game Log is a WordPress plugin designed for gamers who want to track and organize their video game collection. Whether you're a casual gamer or a serious collector, this plugin helps you keep track of games you've played, are currently playing, or want to play in the future.
 
 = Key Features =
 
@@ -40,15 +40,15 @@ The plugin integrates with the Internet Game Database (IGDB.com) to provide high
 
 = Requirements =
 
-* WordPress 5.0 or higher
-* PHP 7.4 or higher
+* WordPress 6.8 or higher
+* PHP 8.2 or higher
 * IGDB API credentials (free registration required)
 
 == Installation ==
 
 1. Upload the `game-log` folder to your `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to 'Game Log' > 'Settings' to configure your IGDB API credentials
+3. Go to 'Mode7 Game Log' > 'Settings' to configure your IGDB API credentials
 4. Start adding games to your collection!
 
 = IGDB API Setup =
@@ -88,14 +88,9 @@ The plugin stores games as WordPress posts, so you can use any WordPress export 
 
 * Initial release
 
-== Upgrade Notice ==
-
-= 1.0.0 =
-Initial release of Game Log plugin. No upgrade required.
-
 == Support ==
 
-For support, feature requests, or bug reports, please visit the plugin's support forum or contact the plugin author.
+For support, feature requests, or bug reports, please visit the plugin's support forum.
 
 == Privacy Policy ==
 

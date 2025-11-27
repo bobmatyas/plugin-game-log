@@ -298,7 +298,7 @@ tr:hover .game-checkbox {
 		content: unset;
 	}
 	.game-log-list     .wp-list-table tr:not(.inline-edit-row):not(.no-items) td.column-primary~td:not(.check-column) {
-        padding: 3px 8px 35px 35%;
+        padding: 3px 8px 35px 11px;
     }
 }
 

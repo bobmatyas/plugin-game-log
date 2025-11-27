@@ -62,7 +62,7 @@ class Game_Log_IGDB_API {
 		}
 
 		if ( empty( $this->client_id ) || empty( $this->client_secret ) ) {
-			throw new Exception( esc_html__( 'IGDB API credentials not configured', 'game-log' ) );
+			throw new Exception( esc_html__( 'IGDB API credentials not configured', 'mode7-game-log' ) );
 		}
 
 		$response = wp_remote_post(
@@ -91,7 +91,7 @@ class Game_Log_IGDB_API {
 			return $this->access_token;
 		}
 
-		throw new Exception( esc_html__( 'Failed to get IGDB access token', 'game-log' ) );
+		throw new Exception( esc_html__( 'Failed to get IGDB access token', 'mode7-game-log' ) );
 	}
 	/**
 	 * Make API request to IGDB
@@ -127,7 +127,7 @@ class Game_Log_IGDB_API {
 		$data = json_decode( $body, true );
 
 		if ( json_last_error() !== JSON_ERROR_NONE ) {
-			throw new Exception( esc_html__( 'Invalid JSON response from IGDB API', 'game-log' ) );
+			throw new Exception( esc_html__( 'Invalid JSON response from IGDB API', 'mode7-game-log' ) );
 		}
 
 		return $data;

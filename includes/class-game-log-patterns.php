@@ -30,7 +30,7 @@ class Game_Log_Patterns {
 		register_block_pattern_category(
 			'gamelog',
 			array(
-				'label' => __( '🎮 Game Log', 'game-log' ),
+				'label' => __( '🎮 Mode7 Game Log', 'mode7-game-log' ),
 			)
 		);
 	}
@@ -70,8 +70,8 @@ class Game_Log_Patterns {
 		register_block_pattern(
 			'gamelog/game-log-query-wishlist',
 			array(
-				'title'       => __( '🎮 Game Log: Wishlist', 'game-log' ),
-				'description' => __( 'Displays a list of games in your wishlist.', 'game-log' ),
+				'title'       => __( '🎮 Mode7 Game Log: Wishlist', 'mode7-game-log' ),
+				'description' => __( 'Displays a list of games in your wishlist.', 'mode7-game-log' ),
 				'categories'  => array( 'gamelog' ),
 				'content'     => '
 					<!-- wp:query {"queryId":7,"query":{"perPage":10,"pages":0,"offset":0,"postType":"game","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"game_status":[' . $term_id . ']},"parents":[],"format":[]},"className":"game__log__container"} -->
@@ -111,8 +111,8 @@ class Game_Log_Patterns {
 		register_block_pattern(
 			'gamelog/game-log-query-played',
 			array(
-				'title'       => __( '🎮 Game Log: Played', 'game-log' ),
-				'description' => __( 'Displays a list of played games.', 'game-log' ),
+				'title'       => __( '🎮 Mode7 Game Log: Played', 'mode7-game-log' ),
+				'description' => __( 'Displays a list of played games.', 'mode7-game-log' ),
 				'categories'  => array( 'gamelog' ),
 				'content'     => '
 					<!-- wp:query {"queryId":9,"query":{"perPage":10,"pages":0,"offset":0,"postType":"game","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"game_status":[' . $term_id . ']},"parents":[],"format":[]},"className":"game__log__container"} -->
@@ -152,8 +152,8 @@ class Game_Log_Patterns {
 		register_block_pattern(
 			'gamelog/game-log-query-playing',
 			array(
-				'title'       => __( '🎮 Game Log: Playing', 'game-log' ),
-				'description' => __( 'Displays a list of currently playing games.', 'game-log' ),
+				'title'       => __( '🎮 Mode7 Game Log: Playing', 'mode7-game-log' ),
+				'description' => __( 'Displays a list of currently playing games.', 'mode7-game-log' ),
 				'categories'  => array( 'gamelog' ),
 				'content'     => '
 					<!-- wp:query {"queryId":6,"query":{"perPage":10,"pages":0,"offset":0,"postType":"game","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"game_status":[' . $term_id . ']},"parents":[],"format":[]},"className":"game__log__container"} -->
@@ -193,8 +193,8 @@ class Game_Log_Patterns {
 		register_block_pattern(
 			'gamelog/game-log-query-backlog',
 			array(
-				'title'       => __( '🎮 Game Log: Backlog', 'game-log' ),
-				'description' => __( 'Displays a list of games in your backlog.', 'game-log' ),
+				'title'       => __( '🎮 Mode7 Game Log: Backlog', 'mode7-game-log' ),
+				'description' => __( 'Displays a list of games in your backlog.', 'mode7-game-log' ),
 				'categories'  => array( 'gamelog' ),
 				'content'     => '
 					<!-- wp:query {"queryId":8,"query":{"perPage":10,"pages":0,"offset":0,"postType":"game","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":false,"taxQuery":{"game_status":[' . $term_id . ']},"parents":[],"format":[]},"className":"game__log__container"} -->

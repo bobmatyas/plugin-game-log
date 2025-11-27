@@ -19,7 +19,7 @@ class Game_Log {
 	 * Initialize the plugin
 	 */
 	public function init(): void {
-		// Initialize components
+		// Initialize components.
 		new Game_Log_Post_Type();
 		new Game_Log_Taxonomy();
 		new Game_Log_Meta_Fields();
@@ -30,19 +30,19 @@ class Game_Log {
 		new Game_Log_Stats_Block();
 		new Game_Log_Default_Page();
 
-		// Enqueue scripts and styles
+		// Enqueue scripts and styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_public_scripts' ) );
 		add_action( 'after_setup_theme', array( $this, 'add_editor_styles_support' ) );
 	}
-    
+
 	/**
 	 * Enqueue admin scripts and styles
 	 */
 	public function enqueue_admin_scripts(): void {
 		$screen = get_current_screen();
 
-		if ( ! $screen || ! in_array( $screen->id, array( 'game', 'edit-game', 'toplevel_page_game-log', 'game-log_page_game-log-add', 'game-log_page_game-log-settings' ), true ) ) {
+		if ( ! $screen || ! in_array( $screen->id, array( 'game', 'edit-game', 'toplevel_page_mode7-game-log', 'mode7-game-log_page_mode7-game-log-add', 'mode7-game-log_page_mode7-game-log-settings' ), true ) ) {
 			return;
 		}
 
@@ -61,7 +61,7 @@ class Game_Log {
 			GAME_LOG_VERSION
 		);
 
-		// Localize script for AJAX
+		// Localize script for AJAX.
 		wp_localize_script(
 			'game-log-admin',
 			'gameLogAjax',
@@ -69,10 +69,10 @@ class Game_Log {
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( 'game_log_nonce' ),
 				'strings' => array(
-					'searching'  => __( 'Searching...', 'game-log' ),
-					'noResults'  => __( 'No games found', 'game-log' ),
-					'error'      => __( 'An error occurred', 'game-log' ),
-					'gameAdded'  => __( 'Game added successfully', 'game-log' ),
+					'searching'  => __( 'Searching...', 'mode7-game-log' ),
+					'noResults'  => __( 'No games found', 'mode7-game-log' ),
+					'error'      => __( 'An error occurred', 'mode7-game-log' ),
+					'gameAdded'  => __( 'Game added successfully', 'mode7-game-log' ),
 				),
 			)
 		);
