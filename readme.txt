@@ -2,7 +2,7 @@
 Contributors: lastsplash
 Tags: games, gaming, video games, game tracking, 
 Requires at least: 6.8
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 8.2
 Stable tag: 1.0.3
 License: GPLv2 or later
