@@ -31,12 +31,18 @@ Mode7 Game Log is a WordPress plugin designed for gamers who want to track and o
 * **Backlog**: Games you own but haven't started
 * **Wishlist**: Games you want to play
 
-= IGDB Integration =
+= External Services =
 
-The plugin integrates with the Internet Game Database (IGDB.com) to provide high-quality cover images. A free API key is required to use the plugin.
+The plugin integrates with the Internet Game Database (IGDB.com) to provide game data. The API is used to obtain:
+
+* Game cover data
 * Release dates, platforms, genres
 * Developer and publisher information
 * Game summaries and descriptions
+
+To obtain this information, the plugin sends over a user-entered search query (for example, "baseball") and the API sends a list of games matching that search query. No additional data is shared.
+
+IGBD.com is powered by Twitch. To use the API, a free Twitch Developer Account is needed. This is used to [authenticate via Twitch.tv](https://api-docs.igdb.com/#authentication). IGDB.com and Twitch.tv are governed by the following privacy and service terms: [Developer Services Agreement](https://legal.twitch.com/legal/developer-agreement/), [Privacy Notice](https://legal.twitch.com/en/legal/privacy-notice/), and [Terms of Service](https://legal.twitch.com/en/legal/terms-of-service/).
 
 = Requirements =
 
@@ -46,7 +52,7 @@ The plugin integrates with the Internet Game Database (IGDB.com) to provide high
 
 == Installation ==
 
-1. Upload the `game-log` folder to your `/wp-content/plugins/` directory
+1. Upload the `mode7-game-log` folder to your `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to 'Mode7 Game Log' > 'Settings' to configure your IGDB API credentials
 4. Start adding games to your collection!
@@ -54,7 +60,7 @@ The plugin integrates with the Internet Game Database (IGDB.com) to provide high
 = IGDB API Setup =
 
 1. Visit [IGDB API](https://api.igdb.com/) to get your API credentials
-2. Create a Twitch account and register your application
+2. Create a Twitch Developer account and register your application
 3. Get your Client ID and Client Secret
 4. Enter these credentials in the Game Log settings page
 
@@ -83,6 +89,11 @@ The plugin stores games as WordPress posts, so you can use any WordPress export 
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.4 =
+
+* Adjustments for WordPress.org release
+* Improved disclosure for API use
 
 = 1.0.0 =
 

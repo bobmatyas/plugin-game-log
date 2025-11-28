@@ -3,7 +3,7 @@
  * Plugin Name: Mode7 Game Log
  * Plugin URI: https://www.bobmatyas.com
  * Description: A WordPress plugin to track video games you've played, are playing, or want to play using IGDB.com database.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: Bob Matyas
  * License: GPL v2 or later
  * Text Domain: mode7-game-log
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
-define( 'GAME_LOG_VERSION', '1.0.3' );
+define( 'GAME_LOG_VERSION', '1.0.4' );
 define( 'GAME_LOG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'GAME_LOG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'GAME_LOG_PLUGIN_FILE', __FILE__ );
