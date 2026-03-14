@@ -378,15 +378,47 @@
             } else {
                 button.disabled = false;
                 button.textContent = 'Add Game';
-                showNotice('error', data.data.message || gameLogAjax.strings.error);
+                const msg = data.data && data.data.message ? data.data.message : gameLogAjax.strings.error;
+                if (button.closest('#game-search-modal')) {
+                    showNoticeInModal(msg);
+                } else {
+                    showNotice('error', msg);
+                }
             }
         })
         .catch(function(error) {
             console.error('Add game error:', error);
             button.disabled = false;
             button.textContent = 'Add Game';
-            showNotice('error', gameLogAjax.strings.error);
+            const msg = gameLogAjax.strings.error;
+            if (button.closest('#game-search-modal')) {
+                showNoticeInModal(msg);
+            } else {
+                showNotice('error', msg);
+            }
         });
+    }
+
+    /**
+     * Show notice inside the game search modal
+     */
+    function showNoticeInModal(message) {
+        const container = document.getElementById('game-search-modal-notice');
+        if (!container) return;
+        container.innerHTML = '<p>' + message + '</p>';
+        container.className = 'game-search-modal-notice notice notice-error is-dismissible';
+        container.style.display = '';
+
+        setTimeout(function() {
+            container.style.opacity = '0';
+            container.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(function() {
+                container.innerHTML = '';
+                container.className = 'game-search-modal-notice';
+                container.style.display = 'none';
+                container.style.opacity = '';
+            }, 500);
+        }, 5000);
     }
     
     /**

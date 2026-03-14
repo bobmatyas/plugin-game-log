@@ -264,6 +264,7 @@ class Game_Log_Admin {
 						<span class="close">&times;</span>
 					</div>
 					<div class="game-search-modal-body">
+						<div id="game-search-modal-notice" class="game-search-modal-notice" role="alert" aria-live="polite"></div>
 						<p><?php esc_html_e( 'Search the Internet Gaming Database for to add a game to your log.', 'mode7-game-log' ); ?></p>	
 						<div class="game-search-form">
 							

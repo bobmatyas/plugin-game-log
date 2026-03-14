@@ -105,6 +105,15 @@
     overflow-y: auto;
 }
 
+.game-search-modal-notice {
+    display: none;
+    margin-bottom: 15px;
+}
+
+.game-search-modal-notice.notice-error {
+    display: block;
+}
+
 .game-search-form {
     display: flex;
     gap: 10px;
