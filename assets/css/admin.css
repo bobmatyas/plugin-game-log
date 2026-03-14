@@ -42,6 +42,11 @@
     border-radius: 4px;
 }
 
+.game-filters input[type="text"] {
+	min-width: 200px;
+	margin-inline-end: 8px;
+}
+
 /* Game Log List */
 
 .game-log-list th {
