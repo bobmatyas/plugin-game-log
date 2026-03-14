@@ -38,7 +38,7 @@
             searchBtn.addEventListener('click', function() {
                 const modal = document.getElementById('game-search-modal');
                 if (modal) {
-                    modal.style.display = 'block';
+                    modal.showModal();
                 }
                 if (searchInput) {
                     searchInput.focus();
@@ -82,7 +82,7 @@
         // Close modal
         function closeModal() {
             if (modal) {
-                modal.style.display = 'none';
+                modal.close();
             }
             const searchInput = document.getElementById('game-search-input');
             const searchResults = document.getElementById('game-search-results');
@@ -368,25 +368,67 @@
                     }, 500);
                 }
                 
-                // Show success message
-                showNotice('success', gameLogAjax.strings.gameAdded);
-                
-                // Refresh the page after a short delay to show the success state
-                setTimeout(function() {
-                    window.location.reload();
-                }, 1500);
+                // Show success message in modal or on page
+                if (button.closest('#game-search-modal')) {
+                    showNoticeInModal(gameLogAjax.strings.gameAdded, 'success');
+                    // Redirect to default games list so the new game appears in the list
+                    setTimeout(function() {
+                        window.location.href = gameLogAjax.gamesListUrl;
+                    }, 1500);
+                } else {
+                    showNotice('success', gameLogAjax.strings.gameAdded);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1500);
+                }
             } else {
                 button.disabled = false;
                 button.textContent = 'Add Game';
-                showNotice('error', data.data.message || gameLogAjax.strings.error);
+                const msg = data.data && data.data.message ? data.data.message : gameLogAjax.strings.error;
+                if (button.closest('#game-search-modal')) {
+                    showNoticeInModal(msg);
+                } else {
+                    showNotice('error', msg);
+                }
             }
         })
         .catch(function(error) {
             console.error('Add game error:', error);
             button.disabled = false;
             button.textContent = 'Add Game';
-            showNotice('error', gameLogAjax.strings.error);
+            const msg = gameLogAjax.strings.error;
+            if (button.closest('#game-search-modal')) {
+                showNoticeInModal(msg);
+            } else {
+                showNotice('error', msg);
+            }
         });
+    }
+
+    /**
+     * Show notice inside the game search modal
+     * @param {string} message - Message text
+     * @param {string} type - 'success' or 'error' (default 'error')
+     */
+    function showNoticeInModal(message, type) {
+        const container = document.getElementById('game-search-modal-notice');
+        if (!container) return;
+        type = type || 'error';
+        const noticeClass = type === 'success' ? 'notice-success' : 'notice-error';
+        container.innerHTML = '<p>' + message + '</p>';
+        container.className = 'game-search-modal-notice notice ' + noticeClass + ' is-dismissible';
+        container.style.display = '';
+
+        setTimeout(function() {
+            container.style.opacity = '0';
+            container.style.transition = 'opacity 0.5s ease-out';
+            setTimeout(function() {
+                container.innerHTML = '';
+                container.className = 'game-search-modal-notice';
+                container.style.display = 'none';
+                container.style.opacity = '';
+            }, 500);
+        }, 5000);
     }
     
     /**

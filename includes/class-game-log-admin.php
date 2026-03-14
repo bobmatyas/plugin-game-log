@@ -10,6 +10,11 @@
  * @since 1.0.0
  */
 
+// Prevent direct access.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Game Log Admin class
  *
@@ -257,13 +262,14 @@ class Game_Log_Admin {
 			<hr class="wp-header-end">
 			
 			<!-- Game Search Modal -->
-			<dialog id="game-search-modal" class="game-search-modal" style="display: none;">
+			<dialog id="game-search-modal" class="game-search-modal">
 
 					<div class="game-search-modal-header">
 						<h2><?php esc_html_e( 'Search Games', 'mode7-game-log' ); ?></h2>
 						<span class="close">&times;</span>
 					</div>
 					<div class="game-search-modal-body">
+						<div id="game-search-modal-notice" class="game-search-modal-notice" role="alert" aria-live="polite"></div>
 						<p><?php esc_html_e( 'Search the Internet Gaming Database for to add a game to your log.', 'mode7-game-log' ); ?></p>	
 						<div class="game-search-form">
 							
@@ -339,10 +345,14 @@ class Game_Log_Admin {
 		);
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
 		$current_status = isset( $_GET['game_status'] ) ? sanitize_text_field( wp_unslash( $_GET['game_status'] ) ) : '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
+		$current_search = isset( $_GET['s'] ) && is_string( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
 
 		?>
 		<form method="get" class="game-filters">
 			<input type="hidden" name="page" value="mode7-game-log" />
+			<label for="game-log-search-input" class="screen-reader-text"><?php esc_html_e( 'Search games', 'mode7-game-log' ); ?></label>
+			<input type="text" name="s" id="game-log-search-input" value="<?php echo esc_attr( $current_search ); ?>" placeholder="<?php esc_attr_e( 'Search by title…', 'mode7-game-log' ); ?>" class="regular-text" />
 			<select name="game_status" id="game_status_filter">
 				<option value=""><?php esc_html_e( 'All Statuses', 'mode7-game-log' ); ?></option>
 				<?php foreach ( $statuses as $status ) : ?>
@@ -360,23 +370,32 @@ class Game_Log_Admin {
 	 * Display games list
 	 */
 	private function display_games_list(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only pagination, no data modification
+		$current_page = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
+		$current_status = isset( $_GET['game_status'] ) && is_string( $_GET['game_status'] ) ? sanitize_text_field( wp_unslash( $_GET['game_status'] ) ) : '';
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
+		$current_search = isset( $_GET['s'] ) && is_string( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : '';
+
 		$args = array(
 			'post_type'      => 'game',
 			'post_status'    => 'publish',
 			'posts_per_page' => 20,
-			'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+			'paged'          => $current_page,
 		);
 
+		if ( ! empty( $current_search ) ) {
+			$args['s'] = $current_search;
+		}
+
 		// Add status filter if selected.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
-		if ( isset( $_GET['game_status'] ) && ! empty( $_GET['game_status'] ) ) {
+		if ( ! empty( $current_status ) ) {
 			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Required for filtering games by status
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'game_status',
 					'field'    => 'slug',
-					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
-					'terms'    => sanitize_text_field( wp_unslash( $_GET['game_status'] ) ),
+					'terms'    => $current_status,
 				),
 			);
 		}
@@ -464,10 +483,18 @@ class Game_Log_Admin {
 			
 			<?php
 			// Pagination.
+			$base = add_query_arg( 'page', 'mode7-game-log', admin_url( 'admin.php' ) );
+			if ( ! empty( $current_status ) ) {
+				$base = add_query_arg( 'game_status', $current_status, $base );
+			}
+			if ( ! empty( $current_search ) ) {
+				$base = add_query_arg( 's', $current_search, $base );
+			}
 			$pagination_args = array(
 				'total'        => $games->max_num_pages,
-				'current'      => max( 1, get_query_var( 'paged' ) ),
-				'format'       => '?paged=%#%',
+				'current'      => $current_page,
+				'base'         => $base . '&paged=%#%',
+				'format'       => '',
 				'show_all'     => false,
 				'type'         => 'list',
 				'end_size'     => 1,
@@ -479,14 +506,20 @@ class Game_Log_Admin {
 				'add_fragment' => '',
 			);
 
+			$pagination_links = paginate_links( $pagination_args );
+			if ( $pagination_links ) {
+				$pagination_links = str_replace( ' class="next page-numbers"', ' class="button next page-numbers"', $pagination_links );
+				$pagination_links = str_replace( ' class="prev page-numbers"', ' class="button prev page-numbers"', $pagination_links );
+				$pagination_links = str_replace( '<a class="page-numbers"', '<a class="button page-numbers"', $pagination_links );
+			}
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo paginate_links( $pagination_args );
+			echo $pagination_links;
 			?>
 
 			<?php
 		} else {
 			?>
-			<p><?php esc_html_e( 'No games found.', 'mode7-game-log' ); ?></p>
+			<p><?php echo ! empty( $current_search ) ? esc_html__( 'No games match your search.', 'mode7-game-log' ) : esc_html__( 'No games found.', 'mode7-game-log' ); ?></p>
 			<?php
 		}
 

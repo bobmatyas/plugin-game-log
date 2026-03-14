@@ -38,11 +38,21 @@
 
 /* Game Filters */
 .game-filters {
+	display: flex;
     background: #f1f1f1;
     border-radius: 4px;
+	gap: 10px;
+}
+
+.game-filters input[type="text"] {
+	min-width: 200px;
 }
 
 /* Game Log List */
+
+.game-log-list {
+	margin-block-start: 10px;
+}
 
 .game-log-list th {
 	font-weight: bold;
@@ -55,16 +65,17 @@
 
 /* Game Search Modal */
 
+#game-search-modal::backdrop {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.25);
+}
+
 .game-search-modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-color: #fff;
 	border-color: #eee;
 	border-radius: 4px;
 	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-	padding: 0;
-	margin: 0;
-	background-color: #fff;
     margin: auto;
     padding: 0;
     width: 90%;
@@ -103,6 +114,20 @@
     padding: 20px;
     max-height: 60vh;
     overflow-y: auto;
+}
+
+.game-search-modal-notice {
+    display: none;
+    margin-bottom: 15px;
+}
+
+.game-search-modal-notice.notice-error,
+.game-search-modal-notice.notice-success {
+    display: block;
+}
+
+.game-search-modal-notice.notice-success {
+    border-left-color: #00a32a;
 }
 
 .game-search-form {
@@ -380,6 +405,28 @@ tr:hover .game-checkbox {
     color: #666;
 }
 
+ul.page-numbers {
+	display: flex;
+	gap: 10px
+}
+
+.page-numbers .current {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .game-stats {
@@ -401,5 +448,20 @@ tr:hover .game-checkbox {
     
     .game-search-form {
         flex-direction: column;
+    }
+	.game-filters {
+		flex-direction: column;
+	}
+
+	.game-filters input[type="text"], .game-filters select, .game-search-form input {
+		min-width: 100%;
+	}
+}
+
+@media (max-width: 782px) {
+    .page-numbers .current {
+        padding: 0 14px;
+        line-height: 2.71428571;
+        font-size: 14px;
     }
 }
