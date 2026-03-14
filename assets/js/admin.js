@@ -38,7 +38,7 @@
             searchBtn.addEventListener('click', function() {
                 const modal = document.getElementById('game-search-modal');
                 if (modal) {
-                    modal.style.display = 'block';
+                    modal.showModal();
                 }
                 if (searchInput) {
                     searchInput.focus();
@@ -82,7 +82,7 @@
         // Close modal
         function closeModal() {
             if (modal) {
-                modal.style.display = 'none';
+                modal.close();
             }
             const searchInput = document.getElementById('game-search-input');
             const searchResults = document.getElementById('game-search-results');

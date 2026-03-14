@@ -257,7 +257,7 @@ class Game_Log_Admin {
 			<hr class="wp-header-end">
 			
 			<!-- Game Search Modal -->
-			<dialog id="game-search-modal" class="game-search-modal" style="display: none;">
+			<dialog id="game-search-modal" class="game-search-modal">
 
 					<div class="game-search-modal-header">
 						<h2><?php esc_html_e( 'Search Games', 'mode7-game-log' ); ?></h2>

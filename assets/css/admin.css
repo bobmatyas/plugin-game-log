@@ -55,16 +55,17 @@
 
 /* Game Search Modal */
 
+#game-search-modal::backdrop {
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.25);
+}
+
 .game-search-modal {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	background-color: #fff;
 	border-color: #eee;
 	border-radius: 4px;
 	box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-	padding: 0;
-	margin: 0;
-	background-color: #fff;
     margin: auto;
     padding: 0;
     width: 90%;
