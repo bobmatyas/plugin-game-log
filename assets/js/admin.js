@@ -368,13 +368,19 @@
                     }, 500);
                 }
                 
-                // Show success message
-                showNotice('success', gameLogAjax.strings.gameAdded);
-                
-                // Refresh the page after a short delay to show the success state
-                setTimeout(function() {
-                    window.location.reload();
-                }, 1500);
+                // Show success message in modal or on page
+                if (button.closest('#game-search-modal')) {
+                    showNoticeInModal(gameLogAjax.strings.gameAdded, 'success');
+                    // Redirect to default games list so the new game appears in the list
+                    setTimeout(function() {
+                        window.location.href = gameLogAjax.gamesListUrl;
+                    }, 1500);
+                } else {
+                    showNotice('success', gameLogAjax.strings.gameAdded);
+                    setTimeout(function() {
+                        window.location.reload();
+                    }, 1500);
+                }
             } else {
                 button.disabled = false;
                 button.textContent = 'Add Game';
@@ -401,12 +407,16 @@
 
     /**
      * Show notice inside the game search modal
+     * @param {string} message - Message text
+     * @param {string} type - 'success' or 'error' (default 'error')
      */
-    function showNoticeInModal(message) {
+    function showNoticeInModal(message, type) {
         const container = document.getElementById('game-search-modal-notice');
         if (!container) return;
+        type = type || 'error';
+        const noticeClass = type === 'success' ? 'notice-success' : 'notice-error';
         container.innerHTML = '<p>' + message + '</p>';
-        container.className = 'game-search-modal-notice notice notice-error is-dismissible';
+        container.className = 'game-search-modal-notice notice ' + noticeClass + ' is-dismissible';
         container.style.display = '';
 
         setTimeout(function() {

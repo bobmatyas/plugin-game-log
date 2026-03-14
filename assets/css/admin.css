@@ -116,8 +116,13 @@
     margin-bottom: 15px;
 }
 
-.game-search-modal-notice.notice-error {
+.game-search-modal-notice.notice-error,
+.game-search-modal-notice.notice-success {
     display: block;
+}
+
+.game-search-modal-notice.notice-success {
+    border-left-color: #00a32a;
 }
 
 .game-search-form {

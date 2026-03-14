@@ -69,8 +69,9 @@ class Game_Log {
 			'game-log-admin',
 			'gameLogAjax',
 			array(
-				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'game_log_nonce' ),
+				'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+				'gamesListUrl'  => add_query_arg( 'page', 'mode7-game-log', admin_url( 'admin.php' ) ),
+				'nonce'         => wp_create_nonce( 'game_log_nonce' ),
 				'strings' => array(
 					'searching'  => __( 'Searching...', 'mode7-game-log' ),
 					'noResults'  => __( 'No games found', 'mode7-game-log' ),
