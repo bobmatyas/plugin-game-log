@@ -360,23 +360,26 @@ class Game_Log_Admin {
 	 * Display games list
 	 */
 	private function display_games_list(): void {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only pagination, no data modification
+		$current_page = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
+		$current_status = isset( $_GET['game_status'] ) && is_string( $_GET['game_status'] ) ? sanitize_text_field( wp_unslash( $_GET['game_status'] ) ) : '';
+
 		$args = array(
 			'post_type'      => 'game',
 			'post_status'    => 'publish',
 			'posts_per_page' => 20,
-			'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
+			'paged'          => $current_page,
 		);
 
 		// Add status filter if selected.
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
-		if ( isset( $_GET['game_status'] ) && ! empty( $_GET['game_status'] ) ) {
+		if ( ! empty( $current_status ) ) {
 			// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- Required for filtering games by status
 			$args['tax_query'] = array(
 				array(
 					'taxonomy' => 'game_status',
 					'field'    => 'slug',
-					// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- GET form for filtering, no data modification
-					'terms'    => sanitize_text_field( wp_unslash( $_GET['game_status'] ) ),
+					'terms'    => $current_status,
 				),
 			);
 		}
@@ -464,10 +467,15 @@ class Game_Log_Admin {
 			
 			<?php
 			// Pagination.
+			$base = add_query_arg( 'page', 'mode7-game-log', admin_url( 'admin.php' ) );
+			if ( ! empty( $current_status ) ) {
+				$base = add_query_arg( 'game_status', $current_status, $base );
+			}
 			$pagination_args = array(
 				'total'        => $games->max_num_pages,
-				'current'      => max( 1, get_query_var( 'paged' ) ),
-				'format'       => '?paged=%#%',
+				'current'      => $current_page,
+				'base'         => $base . '&paged=%#%',
+				'format'       => '',
 				'show_all'     => false,
 				'type'         => 'list',
 				'end_size'     => 1,
