@@ -506,8 +506,14 @@ class Game_Log_Admin {
 				'add_fragment' => '',
 			);
 
+			$pagination_links = paginate_links( $pagination_args );
+			if ( $pagination_links ) {
+				$pagination_links = str_replace( ' class="next page-numbers"', ' class="button next page-numbers"', $pagination_links );
+				$pagination_links = str_replace( ' class="prev page-numbers"', ' class="button prev page-numbers"', $pagination_links );
+				$pagination_links = str_replace( '<a class="page-numbers"', '<a class="button page-numbers"', $pagination_links );
+			}
 			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			echo paginate_links( $pagination_args );
+			echo $pagination_links;
 			?>
 
 			<?php

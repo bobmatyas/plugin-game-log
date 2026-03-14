@@ -38,16 +38,21 @@
 
 /* Game Filters */
 .game-filters {
+	display: flex;
     background: #f1f1f1;
     border-radius: 4px;
+	gap: 10px;
 }
 
 .game-filters input[type="text"] {
 	min-width: 200px;
-	margin-inline-end: 8px;
 }
 
 /* Game Log List */
+
+.game-log-list {
+	margin-block-start: 10px;
+}
 
 .game-log-list th {
 	font-weight: bold;
@@ -400,6 +405,28 @@ tr:hover .game-checkbox {
     color: #666;
 }
 
+ul.page-numbers {
+	display: flex;
+	gap: 10px
+}
+
+.page-numbers .current {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .game-stats {
@@ -421,5 +448,20 @@ tr:hover .game-checkbox {
     
     .game-search-form {
         flex-direction: column;
+    }
+	.game-filters {
+		flex-direction: column;
+	}
+
+	.game-filters input[type="text"], .game-filters select, .game-search-form input {
+		min-width: 100%;
+	}
+}
+
+@media (max-width: 782px) {
+    .page-numbers .current {
+        padding: 0 14px;
+        line-height: 2.71428571;
+        font-size: 14px;
     }
 }
