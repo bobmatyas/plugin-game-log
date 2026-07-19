@@ -1,10 +1,10 @@
 === Mode7 Game Log ===
 Contributors: lastsplash
 Tags: games, gaming, video games, game tracking, 
-Requires at least: 6.8
-Tested up to: 6.9
+Requires at least: 6.9
+Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ The plugin stores games as WordPress posts, so you can use any WordPress export 
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.6 =
+
+* Indicate WordPress v7.0 compatibility
 
 = 1.0.5 =
 
