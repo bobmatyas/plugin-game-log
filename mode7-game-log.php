@@ -5,7 +5,8 @@
  * Description: A WordPress plugin to track video games you've played, are playing, or want to play using IGDB.com database.
  * Version: 1.0.6
  * Author: Bob Matyas
- * License: GPL v2 or later
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: mode7-game-log
  *
  * @package Game_Log
