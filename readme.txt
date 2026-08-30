@@ -2,9 +2,9 @@
 Contributors: lastsplash
 Tags: games, gaming, video games, game tracking, 
 Requires at least: 6.9
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 8.2
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,9 @@ The plugin stores games as WordPress posts, so you can use any WordPress export 
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.7 =
+* Tested up to WordPress 7.1.
 
 = 1.0.6 =
 
